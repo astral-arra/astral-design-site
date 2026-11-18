@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy &amp; cookies — Astral Design</title>
+<meta name="description" content="How Astral Design uses cookies and Google Analytics.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
+<style>
+:root{--bg:#FAF8FF;--ink:#2A2340;--text-2:#574E73;--line:#E9E3F5;--primary:#86661A;--gold:#C9A24A}
+@media (prefers-color-scheme:dark){:root{--bg:#14111F;--ink:#F2EDFB;--text-2:#C6BDDF;--line:#2F2948;--primary:#E2C377;--gold:#D9B65E}}
+body{margin:0;background:var(--bg);color:var(--text-2);font:16px/1.7 "DM Sans",system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:56px 20px 80px}
+a{color:var(--primary)}
+.back{font-size:13px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+h1,h2{font-family:"Cormorant Garamond",Georgia,serif;color:var(--ink);font-weight:600}
+h1{font-size:44px;line-height:1.1;margin:28px 0 8px}
+h2{font-size:26px;margin:40px 0 8px}
+hr{border:0;border-top:1px solid var(--gold);width:64px;margin:24px 0 8px}
+button{font:inherit;color:var(--primary);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+code{font-size:.92em}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="/">← Astral Design</a>
+  <h1>Privacy &amp; cookies</h1>
+  <hr>
+
+  <h2>Google Analytics</h2>
+  <p>If you click “Accept” in the cookie banner, we load Google Analytics 4. It sets cookies (<code>_ga</code>, <code>_ga_*</code>) and collects aggregated information: which pages you visit, roughly where you are (country/city), your device and browser, and how you found the site. We keep this data for 14 months and do not use it for advertising. If you decline, Google Analytics is not loaded at all.</p>
+  <p>You can change your choice at any time: <button type="button" id="cookie-settings">open cookie settings</button>.</p>
+
+  <h2>Your birth data and account</h2>
+  <p>Astral Design is in an early preview. A full privacy policy covering accounts, birth data and payments will be published before these features go live.</p>
+</main>
+<script>
+document.getElementById('cookie-settings').addEventListener('click', function(){
+  try { localStorage.removeItem('ad-consent'); } catch(e) {}
+  location.href = '/';
+});
+</script>
+</body>
+</html>

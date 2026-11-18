@@ -1,0 +1,2213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Astral Design — Human Design software (Astral Hub), personal reports and an AI library. Explore your original Blueprint.">
+<meta property="og:title" content="Astral Design — Beyond limits">
+<meta property="og:description" content="Human Design software, personal reports and an AI library. Explore your original Blueprint.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astral-design.com/">
+<meta name="theme-color" content="#FAF8FF">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Astral Design — Beyond limits</title>
+</head>
+<body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<style>
+/* Layout: centered ceremonial hero (Merkaba → bodygraph), then 1200px column; sidebar + workspace for the app. Lavender ground, gold line-work. */
+:root{
+  --bg:#FAF8FF; --bg-2:#F3EFFB; --surface:#FFFFFF; --ink:#2A2340; --text-2:#574E73; --text-3:#6A6189;
+  --line:#E9E3F5; --line-2:#D8CFEC; --primary:#86661A; --primary-700:#6A4F10; --primary-50:#F1ECFA; --on-primary:#221B38;
+  --primary-ink:#4A3B80; --accent:#C9A24A; --accent-50:#FBF4E2; --accent-ink:#76570F; --ok:#2F6B4A; --ok-50:#E6F4EC;
+  --open-stroke:#C9BFE3; --channel:#E4DEF2; --night:#2A2340; --night-2:#3A3158; --night-text:#D7CFEA;
+  --gold:#C9A24A; --gold-soft:#E2C989; --hd-gold:#E8C26A; --hd-gold-edge:#D4A94A; --open-depth:#D9D1EE; --open-shade:#F1EDFA; --frame-a:#F7F3FE; --frame-b:#EFE8FB; --hd-violet:#6E4FD6; --hd-violet-soft:#8E72E6; --gate-text:#5E5294; --violet:#9C8BD3; --glow:rgba(156,139,211,.30);
+  --shadow:0 1px 2px rgba(42,35,64,.05),0 24px 48px rgba(74,59,128,.10);
+  --f-display:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif; --f-body:"DM Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14111F; --bg-2:#1B1729; --surface:#211C33; --ink:#F2EDFB; --text-2:#C6BDDF; --text-3:#A99FC8;
+  --line:#2F2948; --line-2:#40385F; --primary:#E2C377; --primary-700:#F0D79A; --primary-50:#2C2546; --on-primary:#1A1528;
+  --primary-ink:#D9CFF7; --accent:#D9B65E; --accent-50:#3A2F17; --accent-ink:#F1D89A; --ok:#86D6AA; --ok-50:#173527;
+  --open-stroke:#5A5080; --channel:#3A3358; --night:#0D0B16; --night-2:#2A2442; --night-text:#C6BDDF;
+  --gold:#D9B65E; --gold-soft:#E8CF8F; --hd-gold:#EBC870; --hd-gold-edge:#C9A24A; --open-depth:#15111F; --open-shade:#2A2442; --frame-a:#231D39; --frame-b:#1A1529; --hd-violet:#A48BFF; --hd-violet-soft:#B9A6FF; --gate-text:#D7CFEA; --violet:#A796E0; --glow:rgba(167,150,224,.20);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 24px 48px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14111F; --bg-2:#1B1729; --surface:#211C33; --ink:#F2EDFB; --text-2:#C6BDDF; --text-3:#A99FC8;
+  --line:#2F2948; --line-2:#40385F; --primary:#E2C377; --primary-700:#F0D79A; --primary-50:#2C2546; --on-primary:#1A1528;
+  --primary-ink:#D9CFF7; --accent:#D9B65E; --accent-50:#3A2F17; --accent-ink:#F1D89A; --ok:#86D6AA; --ok-50:#173527;
+  --open-stroke:#5A5080; --channel:#3A3358; --night:#0D0B16; --night-2:#2A2442; --night-text:#C6BDDF;
+  --gold:#D9B65E; --gold-soft:#E8CF8F; --hd-gold:#EBC870; --hd-gold-edge:#C9A24A; --open-depth:#15111F; --open-shade:#2A2442; --frame-a:#231D39; --frame-b:#1A1529; --hd-violet:#A48BFF; --hd-violet-soft:#B9A6FF; --gate-text:#D7CFEA; --violet:#A796E0; --glow:rgba(167,150,224,.20);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 24px 48px rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;margin:0;text-wrap:balance;letter-spacing:-.005em}
+p{margin:0}
+a{color:var(--primary)} a:hover{color:var(--primary-700)}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--primary)}
+.lead{font-size:18px;line-height:28px;color:var(--text-2);max-width:60ch}
+.muted{color:var(--text-2)} .small{font-size:14px;line-height:20px} .xs{font-size:13px;color:var(--text-3)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:2px;border:1px solid transparent;font:500 13px var(--f-body);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.btn-primary{background:var(--gold);color:var(--on-primary)} .btn-primary:hover{background:var(--gold-soft);color:var(--on-primary)}
+.btn-secondary{background:transparent;color:var(--primary);border-color:var(--gold)} .btn-secondary:hover{background:var(--accent-50);color:var(--primary-700)}
+.btn-lg{min-height:54px;padding:0 32px;font-size:13px} .btn-sm{min-height:44px;padding:0 18px;font-size:12px}
+.btn-block{width:100%}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600}
+.pill-indigo{background:var(--primary-50);color:var(--primary-ink)} .pill-amber{background:var(--accent-50);color:var(--accent-ink)}
+.pill-soft{background:var(--bg-2);color:var(--text-2);border:1px solid var(--line)} .pill-ok{background:var(--ok-50);color:var(--ok)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:14px;font-weight:500}
+.input{height:48px;width:100%;padding:0 14px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);color:var(--ink);font:400 15px var(--f-body)}
+.input:focus{outline:3px solid var(--primary-50);border-color:var(--primary)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:22px}
+.check svg{flex-shrink:0;margin-top:1px}
+.grid-auto{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.section{padding-block:88px}
+.band{background:var(--bg-2);border-block:1px solid var(--line)}
+.stack{display:flex;flex-direction:column}
+
+/* site header */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+body::before{background:var(--bg)}
+.site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 32px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);min-height:44px;flex-shrink:0}
+.logo b,.logo span span{font:400 25px/1 var(--f-display);letter-spacing:.07em;color:var(--ink)}
+.nav{display:flex;flex-wrap:wrap;gap:0 4px}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;text-decoration:none;color:var(--text-2);font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.nav a:hover{color:var(--ink)}
+.nav a[aria-current="page"]{color:var(--primary)}
+.header-actions{display:flex;gap:8px;align-items:center}
+.link-plain{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;color:var(--text-2);text-decoration:none;font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.link-plain:hover{color:var(--ink)}
+
+/* ceremonial hero: Merkaba turns, the bodygraph rises out of its center */
+.hero2{position:relative;overflow:hidden;padding-block:24px 88px;background:radial-gradient(55% 45% at 50% 28%,var(--glow),transparent 72%),var(--bg)}
+.waves{position:absolute;left:0;right:0;top:34%;width:100%;height:320px;pointer-events:none}
+.waves path{fill:none;stroke:var(--gold-soft);stroke-width:1;opacity:.55}
+.stage{position:relative;width:min(500px,100%);aspect-ratio:1;max-width:100%;margin:0 auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.stage .halo{position:absolute;inset:20%;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%);transition:inset 1.6s ease,opacity .5s ease}
+.stage .halo::after{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(255,236,190,.55),transparent 65%);opacity:0;transition:opacity .9s ease}
+.stage.charged .halo::after{opacity:1;transition:opacity .12s ease}
+.neutrino{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero2 > .wrap{position:relative;z-index:1}
+.stage.emerged .halo{inset:8%}
+.merkaba{position:absolute;inset:0;width:100%;height:100%;overflow:visible;transition:transform 1.6s cubic-bezier(.2,.7,.2,1),opacity 1.6s ease}
+.merkaba line{vector-effect:non-scaling-stroke;stroke-linecap:round}
+.merkaba .mk-a{stroke:var(--violet);stroke-width:1.4}
+.merkaba .mk-b{stroke:var(--gold);stroke-width:1.8}
+.merkaba .core{fill:var(--gold);transition:opacity .8s}
+.stage.emerged .merkaba{transform:scale(1.22);opacity:.34}
+.stage.emerged .merkaba .core{opacity:0}
+.hero-bg{position:absolute;left:50%;top:50%;width:58%;transform:translate(-50%,-50%)}
+.hero-bg [data-center],.hero-bg .ch,.hero-bg .dot{opacity:0;transform:scale(.2);transform-box:fill-box;transform-origin:center;transition:opacity .8s ease,transform 1s cubic-bezier(.2,.9,.25,1.15)}
+.stage.emerged .hero-bg [data-center],.stage.emerged .hero-bg .ch,.stage.emerged .hero-bg .dot{opacity:1;transform:none}
+.hero-copy2{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;margin-top:-8px}
+.hero-copy2 h1{font-size:clamp(44px,6.4vw,78px);line-height:1.02;font-weight:400;letter-spacing:-.01em}
+.hero-copy2 h1 em{font-style:italic;color:var(--primary)}
+.hero-copy2 h1.one-line{font-size:clamp(34px,5.2vw,68px);white-space:nowrap}
+@media (max-width:560px){.hero-copy2 h1.one-line{white-space:normal}}
+.hero-copy2 .lead{text-align:center;color:var(--text-2)}
+.ornament{display:flex;align-items:center;gap:10px}
+.ornament i{display:block;width:96px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.ornament i:last-child{background:linear-gradient(270deg,transparent,var(--gold))}
+.ornament b{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.text-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 8px;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);text-decoration:none}
+.text-cta:hover{color:var(--primary)}
+.replay{border:none;background:none;color:var(--text-3);font:500 12px var(--f-body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;min-height:40px;padding:0 10px}
+.replay:hover{color:var(--primary)}
+@media (prefers-reduced-motion:reduce){.merkaba,.hero-bg *,.halo{transition:none!important}}
+
+/* hero */
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:56px;padding-block:80px 96px}
+.hero-copy{flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:24px}
+.hero h1{font-size:clamp(40px,5.4vw,62px);line-height:1.06;letter-spacing:-.025em}
+.hero-visual{flex:1 1 420px;min-width:0;display:flex;justify-content:center}
+.mock{width:100%;max-width:520px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.mock-bar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--bg-2);border-bottom:1px solid var(--line);font-size:14px;font-weight:600}
+.mock-body{display:flex;flex-wrap:wrap;gap:20px;padding:24px}
+.fact{border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.fact .k{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.fact .v{font:600 16px var(--f-display);padding-top:2px}
+.bg-slot{display:block;margin:0 auto}
+.bg-slot svg{display:block;width:100%;height:auto}
+@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.35}}
+.spark{animation:twinkle 3.2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.spark{animation:none}}
+
+/* product cards */
+.icon-tile{width:48px;height:48px;border-radius:12px;background:var(--primary-50);display:flex;align-items:center;justify-content:center;color:var(--primary)}
+.product{padding:28px;display:flex;flex-direction:column;gap:14px}
+.product p{font-size:15px;line-height:24px;color:var(--text-2);flex:1}
+.arrow-link{font-weight:600;font-size:15px;text-decoration:none;padding-block:8px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.steps li{display:flex;flex-direction:column;gap:12px}
+.step-n{width:40px;height:40px;border-radius:999px;border:1.5px solid var(--primary);color:var(--primary);display:flex;align-items:center;justify-content:center;font:600 16px var(--f-display)}
+.feature-box{border:1px solid var(--line);border-radius:24px;padding:clamp(24px,4vw,48px);display:flex;flex-wrap:wrap;gap:48px;align-items:center}
+.feature-box > div{flex:1 1 380px;min-width:0}
+.soft-panel{background:var(--bg-2);border-radius:18px;padding:28px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:center}
+.mini{background:var(--surface);border-radius:12px;padding:12px 16px}
+.night{background:var(--night);color:#FFFFFF}
+.night .eyebrow{color:var(--night-text)} .night .lead{color:var(--night-text)}
+.night .pill{background:var(--night-2);color:#E4E5F2;font-weight:500}
+.chat-demo{background:var(--surface);color:var(--ink);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.bubble-me{align-self:flex-end;max-width:85%;background:var(--primary-50);color:var(--ink);border-radius:16px 16px 4px 16px;padding:12px 16px;font-size:15px;line-height:23px}
+.ai{display:flex;gap:12px;align-items:flex-start}
+.ai-avatar{width:34px;height:34px;flex-shrink:0;border-radius:999px;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--on-primary)}
+.ai-body{display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:25px;min-width:0}
+.src{display:inline-flex;padding:5px 10px;border-radius:8px;border:1px solid var(--line);font-size:12px;font-weight:500;color:var(--text-2);text-decoration:none;background:var(--surface)}
+.ask{display:flex;gap:8px;align-items:center;border:1px solid var(--line-2);border-radius:14px;padding:6px 6px 6px 16px;background:var(--surface)}
+.ask input{flex:1;min-width:0;border:none;outline:none;background:transparent;color:var(--ink);height:44px;font:400 15px var(--f-body)}
+.icon-btn{width:44px;height:44px;border:none;border-radius:10px;background:var(--gold);color:var(--on-primary);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.cover{height:164px;display:flex;align-items:center;justify-content:center;position:relative}
+.report-card{text-decoration:none;color:var(--ink);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.report-card:hover{color:var(--ink);transform:translateY(-2px);box-shadow:var(--shadow)}
+.report-card .body{padding:20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.report-card .meta{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--line);margin-top:4px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 20px}
+.faq summary{cursor:pointer;padding:18px 0;font-weight:600;list-style-position:outside}
+.faq details p{padding-bottom:18px;color:var(--text-2);font-size:15px;line-height:24px}
+.cta-band{background:radial-gradient(60% 80% at 50% 0%,rgba(201,162,74,.22),transparent 70%),var(--night);color:#FFFFFF;border-radius:24px;padding:64px clamp(20px,4vw,40px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+.cta-band p{opacity:.88;max-width:52ch;font-size:18px;line-height:28px}
+.cta-band .btn{background:var(--gold);color:#221B38}
+.cta-band .btn:hover{background:var(--gold-soft)}
+
+/* footer */
+.site-footer{background:var(--bg-2);border-top:1px solid var(--line)}
+.site-footer .top{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;padding-block:56px 40px}
+.foot-cols{flex:2 1 480px;display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.foot-cols a{display:block;color:var(--text-2);text-decoration:none;font-size:14px;padding:6px 0}
+.foot-cols a:hover{color:var(--ink)}
+.site-footer .bottom{border-top:1px solid var(--line);padding-block:20px 28px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--text-3)}
+
+/* pricing */
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line)}
+.seg button{min-height:44px;padding:0 18px;border:none;border-radius:9px;background:transparent;color:var(--text-2);font:600 14px var(--f-body);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(18,20,43,.12)}
+.save{color:var(--accent-ink)}
+.plan{position:relative;padding:32px 28px;display:flex;flex-direction:column;gap:18px;border-radius:20px}
+.plan.featured{border:1.5px solid var(--gold);box-shadow:var(--shadow)}
+.plan .badge{position:absolute;top:-13px;left:28px}
+.price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.price strong{font:600 40px var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.plan ul{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.table-box{overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+table{width:100%;min-width:640px;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:14px 20px;border-top:1px solid var(--line)}
+thead th{background:var(--bg-2);border-top:none;font-weight:600;color:var(--text-2)}
+tbody th{font-weight:500}
+td.hl{background:color-mix(in srgb,var(--primary-50) 45%,var(--surface))}
+
+/* reports */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--text-2);font:600 14px var(--f-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.grid-reports{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr))}
+
+/* report detail */
+.detail{display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start;padding-block:28px 88px}
+.detail-main{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:40px}
+.checkout{flex:1 1 360px;min-width:0;padding:28px;display:flex;flex-direction:column;gap:20px;box-shadow:var(--shadow);border-radius:20px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px)}
+.book{width:min(240px,100%);aspect-ratio:240/330;background:var(--surface);border-radius:10px;box-shadow:0 2px 4px rgba(18,20,43,.06),0 20px 40px rgba(49,46,129,.16);padding:26px 22px;display:flex;flex-direction:column}
+.line{height:6px;border-radius:3px;background:var(--line)}
+.chapters{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.chapters li{display:flex;gap:16px;padding:16px 20px;border-top:1px solid var(--line)}
+.chapters li:first-child{border-top:none}
+.chapters .n{width:28px;flex-shrink:0;font:600 16px var(--f-display);color:var(--primary);font-variant-numeric:tabular-nums}
+.radio{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;border:1px solid var(--line-2);border-radius:10px;font-size:15px;font-weight:500;cursor:pointer}
+.radio:has(input:checked){border:2px solid var(--primary);background:var(--primary-50)}
+.radio input{width:18px;height:18px;accent-color:var(--primary)}
+.sum{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-size:14px;font-weight:500;z-index:40;box-shadow:var(--shadow)}
+
+/* signup */
+.auth{display:flex;flex-wrap:wrap;min-height:100vh}
+.auth-side{flex:1 1 400px;background:var(--primary-50);padding-block:32px 48px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:24px;display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.auth-main{flex:1 1 480px;padding-block:48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;justify-content:center}
+.auth-form{width:100%;max-width:440px;display:flex;flex-direction:column;gap:20px}
+.progress{list-style:none;margin:0;padding:0;display:flex;gap:8px}
+.progress li{flex:1;display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:var(--text-3)}
+.progress li::before{content:"";height:4px;border-radius:2px;background:var(--line)}
+.progress li.on{color:var(--primary-ink)} .progress li.on::before{background:var(--primary)}
+.or{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-3)} .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.suggest{list-style:none;margin:0;padding:6px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+.suggest button{width:100%;text-align:left;padding:10px 12px;border:none;border-radius:8px;background:transparent;color:var(--ink);font:400 15px var(--f-body);cursor:pointer;min-height:44px}
+.suggest button:hover,.suggest button[aria-selected="true"]{background:var(--primary-50)}
+.err{font-size:13px;color:#B42318}
+:root[data-theme="dark"] .err{color:#FF9B8F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .err{color:#FF9B8F}}
+
+/* app */
+.app{display:flex;flex-wrap:wrap;min-height:100vh;background:var(--bg-2)}
+.sidebar{flex:1 1 240px;max-width:100%;background:var(--surface);border-right:1px solid var(--line);padding-block:20px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:14px;display:flex;flex-direction:column;gap:22px}
+.side-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.side-nav a{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:10px;text-decoration:none;color:var(--text-2);font-size:15px;font-weight:500}
+.side-nav a::before{content:"";width:8px;height:8px;border-radius:999px;border:1.5px solid var(--open-stroke)}
+.side-nav a:hover{background:var(--bg-2);color:var(--ink)}
+.side-nav a[aria-current="page"]{background:var(--primary-50);color:var(--primary-ink);font-weight:600}
+.side-nav a[aria-current="page"]::before{background:var(--primary);border-color:var(--primary)}
+.quota{border-radius:12px;background:var(--bg-2);padding:14px;display:flex;flex-direction:column;gap:6px}
+.meter{height:6px;border-radius:3px;background:var(--line);overflow:hidden} .meter i{display:block;height:100%;background:var(--primary)}
+.avatar{width:34px;height:34px;border-radius:999px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.workspace{flex:999 1 560px;min-width:0;padding-block:28px 48px;padding-left:max(16px,min(32px,4vw));padding-right:max(16px,env(safe-area-inset-right,0px),min(32px,4vw));display:flex;flex-direction:column;gap:22px}
+.ws-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px}
+.ws-head h1{font-size:30px;line-height:38px}
+.facts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel h2{font-size:18px;letter-spacing:0}
+.cols{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.cols > *{flex:1 1 360px}
+.mini-seg{display:inline-flex;gap:2px;padding:3px;border-radius:10px;background:var(--bg-2)}
+.mini-seg button{min-height:36px;padding:0 12px;border:none;border-radius:8px;background:transparent;color:var(--text-2);font:600 13px var(--f-body);cursor:pointer}
+.mini-seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(18,20,43,.1)}
+.center-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cchip{min-height:40px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--text-2);font:500 13px var(--f-body);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.cchip i{width:8px;height:8px;border-radius:2px;border:1.5px solid var(--open-stroke)}
+.cchip i.def{background:var(--primary);border-color:var(--primary)}
+.cchip[aria-pressed="true"]{border:1.5px solid var(--primary);background:var(--primary-50);color:var(--primary-ink);font-weight:600}
+.center-info{border-radius:14px;background:var(--bg-2);padding:18px;display:flex;flex-direction:column;gap:8px}
+.promo{background:var(--night);border-radius:18px;padding:22px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;color:#FFFFFF}
+.promo:hover{color:#FFFFFF}
+.legend{display:flex;gap:20px;justify-content:center;font-size:13px;color:var(--text-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px}
+.bg-svg .def{fill:url(#hdDef);stroke:#D9B65E;stroke-width:1.6;stroke-linejoin:round;filter:drop-shadow(0 4px 6px rgba(94,64,190,.28))}
+.bg-svg .open{fill:url(#hdOpen);stroke:#CFC5E8;stroke-width:1.4;stroke-linejoin:round;filter:drop-shadow(0 3px 5px rgba(94,64,190,.10))}
+.bg-svg .facet{stroke:rgba(255,255,255,.38);stroke-width:.8;pointer-events:none}
+.bg-svg .facet.on-open{stroke:rgba(156,139,211,.28)}
+.bg-svg .sparkle{fill:#FFFFFF;pointer-events:none;opacity:.95}
+.bg-svg .ch path{fill:none;stroke-linecap:round}
+.bg-svg .ch .base{stroke:var(--channel);stroke-width:4.6}
+.bg-svg .ch .core,.bg-svg .ch .stripe{display:none}
+.bg-svg .ch.on.p .base{stroke:var(--hd-violet);stroke-width:3.4}
+.bg-svg .ch.on.d .base{stroke:#D9AE4E;stroke-width:4.6}
+.bg-svg .ch.on.d .core{display:inline;stroke:#FFF7E2;stroke-width:1.5}
+.bg-svg .ch.on.b .base{stroke:var(--hd-violet);stroke-width:4.6}
+.bg-svg .ch.on.b .stripe{display:inline;stroke:#D9AE4E;stroke-width:4.6;stroke-dasharray:5 5;stroke-linecap:butt}
+.bg-svg .hang{display:none}
+.bg-svg .hang.on{display:inline}
+.bg-svg .hang.p{fill:var(--hd-violet)} .bg-svg .hang.d{fill:#D9AE4E} .bg-svg .hang.b{fill:#D9AE4E;stroke:var(--hd-violet);stroke-width:1.5}
+.bg-svg .gc circle{fill:var(--surface);stroke:#CFC5E8;stroke-width:1}
+.bg-svg .gc text{font:600 8.4px/1 "DM Sans",ui-sans-serif,system-ui,sans-serif;fill:var(--gate-text);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.bg-svg .gc.p circle{fill:url(#hdGateViolet);stroke:#FFFFFF;stroke-width:1.2}
+.bg-svg .gc.d circle{fill:url(#hdGateGold);stroke:#FFFFFF;stroke-width:1.2}
+.bg-svg .gc.b circle{fill:url(#hdGateViolet);stroke:#E2B957;stroke-width:2}
+.bg-svg .gc.p text,.bg-svg .gc.d text,.bg-svg .gc.b text{fill:#FFFFFF}
+.bg-svg .gc.tr circle{stroke:var(--violet);stroke-width:2;stroke-dasharray:2 2}
+.bg-svg .frame-fill{fill:url(#hdFrame)}
+.bg-svg .frame-gold{fill:none;stroke:#D9B65E;stroke-width:1.2}
+.bg-svg .frame-dots{fill:none;stroke:#A796E0;stroke-width:1.6;stroke-dasharray:.1 6;stroke-linecap:round}
+.bg-svg .frame-star{fill:#D9B65E}
+.bg-svg .def.hot,.bg-svg .open.hot{stroke:#E2B957;stroke-width:3.4}
+.bg-svg .transit{fill:none;stroke:var(--violet);stroke-width:3;stroke-dasharray:2 4;stroke-linecap:round}
+.bg-svg .dot{fill:var(--accent)}
+.hero-bg .bg-frame,.chart-btn .bg-frame{display:none}
+.bg-svg [data-center]{cursor:pointer}
+
+.chat{flex:999 1 480px;min-height:640px;padding:0;gap:0}
+.chat-head{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.thread{flex:1;padding:24px 22px;display:flex;flex-direction:column;gap:22px;overflow-y:auto;max-height:620px}
+.chat-foot{padding:0 22px 22px;display:flex;flex-direction:column;gap:12px}
+.typing span{display:inline-block;width:6px;height:6px;margin-right:4px;border-radius:999px;background:var(--text-3);animation:twinkle 1s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+.lib-side{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:20px}
+.src-item{border-radius:12px;background:var(--bg-2);padding:14px;display:flex;flex-direction:column;gap:4px}
+.drop{border:1.5px dashed var(--open-stroke);border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.drop.over{border-color:var(--primary);background:var(--primary-50)}
+.docs{list-style:none;margin:0;padding:0}
+.docs li{display:flex;align-items:center;gap:10px;padding:10px 4px;border-top:1px solid var(--line);font-size:14px}
+.docs li span:first-of-type{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.demo-note{font-size:12px;color:var(--text-3)}
+
+.nav a.hub-link{position:relative;gap:6px;color:var(--primary);border:1px solid var(--gold);border-radius:999px;margin-inline:4px;padding:0 14px 0 10px;background:linear-gradient(110deg,var(--accent-50) 0%,var(--accent-50) 40%,rgba(255,240,200,.95) 50%,var(--accent-50) 60%,var(--accent-50) 100%);background-size:250% 100%;animation:hubGlow 3.2s ease-in-out infinite,shimmer 4.5s linear infinite}
+.nav a.hub-link:hover{color:var(--primary-700);box-shadow:0 0 0 1px var(--gold),0 0 22px 4px rgba(226,201,137,.75)}
+@keyframes hubGlow{0%,100%{box-shadow:0 0 0 0 rgba(226,201,137,0)}50%{box-shadow:0 0 18px 3px rgba(226,201,137,.65)}}
+@keyframes shimmer{0%{background-position:150% 0}100%{background-position:-100% 0}}
+
+[hidden]{display:none!important}
+.site-header .wrap{max-width:1400px;gap:10px 20px}
+.nav{gap:0 2px}
+.nav a{padding:0 9px;font-size:12px;letter-spacing:.11em}
+.header-actions{gap:6px}
+.nav .cart-link{margin-left:4px;padding:0;min-height:0}
+.site-header .wrap{justify-content:flex-start}
+.site-header .nav{margin-left:auto}
+.site-header .header-actions{margin-left:4px}
+.nav{align-items:center}
+.nav a.nav-login{color:var(--ink)}
+.header-actions .link-plain{font-size:12px;letter-spacing:.11em;padding:0 8px}
+@media (max-width:1400px){
+  .site-header .wrap{gap:10px 12px}
+  .nav a{padding:0 7px;letter-spacing:.07em}
+  .nav a.hub-link{padding:0 10px 0 8px;margin-inline:2px}
+  .site-header .logo b,.site-header .logo span span{font-size:21px;letter-spacing:.04em}
+  .site-header .logo svg{width:40px;height:40px}
+  .header-cta{padding:0 14px;letter-spacing:.08em}
+}
+
+.header-cta{background:transparent;color:var(--primary);border:1px solid var(--gold);border-radius:999px;padding:0 20px}
+.header-cta{transition:transform .2s ease,background .2s,color .2s,box-shadow .2s,border-color .2s}
+.header-cta:hover,.header-cta:focus-visible{color:#2A1C02;border-color:#F6E2A6;background:linear-gradient(180deg,#F6E2A6 0%,#E2B957 45%,#C9962F 100%);transform:translateY(-2px) scale(1.04);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -2px 4px rgba(110,78,18,.35),0 4px 0 #9C7424,0 10px 20px rgba(156,116,36,.38)}
+.header-cta:active{transform:translateY(1px) scale(1.01);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 2px rgba(110,78,18,.3),0 1px 0 #9C7424,0 3px 8px rgba(156,116,36,.3)}
+@media (prefers-reduced-motion:reduce){.header-cta:hover,.header-cta:focus-visible{transform:none}}
+
+.logo-text{display:flex;flex-direction:column;gap:5px;line-height:1}
+.logo-motto{font:500 9.5px/1 var(--f-body);letter-spacing:.34em;text-transform:uppercase;color:var(--primary);padding-left:2px}
+.logo-motto::before{content:"";display:inline-block;width:14px;height:1px;background:var(--gold);vertical-align:middle;margin-right:7px}
+
+/* menu hover: light up, lift slightly, gain a 3D edge */
+.nav a:not(.hub-link):not(.cart-link){border-radius:999px;transition:transform .2s ease,color .2s,background .2s,box-shadow .2s,text-shadow .2s}
+.nav a:not(.hub-link):not(.cart-link):hover,.nav a:not(.hub-link):not(.cart-link):focus-visible{color:var(--ink);transform:translateY(-2px) scale(1.06);background:linear-gradient(180deg,var(--surface) 0%,var(--accent-50) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 3px 0 var(--gold-soft),0 8px 16px rgba(201,162,74,.32);text-shadow:0 0 10px rgba(226,201,137,.85)}
+.nav a:not(.hub-link):not(.cart-link):active{transform:translateY(0) scale(1.02);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 0 var(--gold-soft),0 3px 6px rgba(201,162,74,.25)}
+.nav a.hub-link{transition:transform .2s ease,box-shadow .2s}
+.nav a.hub-link:hover,.nav a.hub-link:focus-visible{transform:translateY(-2px) scale(1.06)}
+@media (prefers-reduced-motion:reduce){.nav a:hover,.nav a:focus-visible{transform:none!important}}
+
+/* logo hover: letters rearrange, stars appear */
+.site-header .logo,.site-footer .logo{position:relative}
+.logo-spark{position:absolute;pointer-events:none;width:var(--sz,10px);height:var(--sz,10px);color:var(--gold);z-index:3;animation:spark var(--dur,.95s) ease-out forwards}
+.logo-spark svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 4px rgba(226,201,137,.9))}
+@keyframes spark{0%{opacity:0;transform:translate(0,0) scale(.2) rotate(0deg)}25%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1) rotate(120deg)}}
+.logo .scrambling{color:var(--primary)}
+
+/* software modules */
+.modules{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+.module{padding:24px;display:flex;flex-direction:column;gap:10px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.module:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold-soft)}
+.module-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.module h3{font-size:22px;line-height:1.2}
+.module p{font-size:14.5px;line-height:22px;color:var(--text-2)}
+@media (prefers-reduced-motion:reduce){.module:hover{transform:none}}
+
+/* mobile menu */
+.mobile-bar{display:none;align-items:center;gap:6px;margin-left:auto;flex-shrink:0}
+.menu-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:112px;padding:0 12px;flex-shrink:0;border:1px solid var(--gold);border-radius:999px;background:transparent;color:var(--primary);font:500 12px var(--f-body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+@media (max-width:1100px){
+  .site-header .wrap{flex-wrap:wrap}
+  .mobile-bar{display:flex}
+  .site-header .nav{display:none;order:3;width:100%;flex-direction:column;align-items:stretch;margin-left:0;padding:8px 0 12px;gap:2px}
+  .site-header.open .nav{display:flex}
+  .site-header .nav a{min-height:48px;justify-content:flex-start;font-size:13px;padding:0 14px}
+  .site-header .nav a.hub-link{align-self:flex-start;margin:4px 0}
+  .site-header .header-actions{order:4;width:100%;display:none;padding-bottom:14px}
+  .site-header.open .header-actions{display:flex}
+  .site-header .header-actions .header-cta{width:100%}
+}
+
+@media (max-width:440px){.menu-toggle{min-width:44px;width:44px;padding:0}.menu-toggle span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.mobile-bar .cart-link{width:44px;height:44px}}
+
+/* golden glow helpers */
+.glow-gold{animation:hubGlow 3.2s ease-in-out infinite}
+
+/* golden light threads behind the page */
+.thread{position:absolute;left:0;right:0;height:160px;width:100%;z-index:-1;pointer-events:none;overflow:visible}
+.thread .base{fill:none;stroke:url(#threadGrad);stroke-width:1.2;opacity:.7}
+.thread .glow{fill:none;stroke:#F3D891;stroke-width:5;opacity:.18;filter:blur(3px)}
+.thread .glint{fill:none;stroke:#FFF1C9;stroke-width:2;stroke-linecap:round;stroke-dasharray:140 2400;animation:glint 9s linear infinite;opacity:.9}
+@keyframes glint{from{stroke-dashoffset:2540}to{stroke-dashoffset:0}}
+.threaded{isolation:isolate}
+@media (prefers-reduced-motion:reduce){.thread .glint{animation:none;opacity:0}}
+#site,#auth,#app{position:relative;z-index:1}
+.site-header{z-index:20}
+.hero2{background:radial-gradient(55% 45% at 50% 28%,var(--glow),transparent 72%)}
+#main > section > .wrap, .band, .night{position:relative}
+
+/* newsletter */
+.newsletter{padding-block:0 88px}
+.nl-card{position:relative;overflow:hidden;border-radius:24px;padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:40px;align-items:center;color:#FFFFFF;background:radial-gradient(70% 90% at 0% 0%,rgba(201,162,74,.28),transparent 60%),radial-gradient(60% 80% at 100% 100%,rgba(156,139,211,.30),transparent 65%),var(--night)}
+.nl-card::before{content:"";position:absolute;inset:0;background-image:radial-gradient(1.2px 1.2px at 12% 22%,#F3E3B5,transparent),radial-gradient(1px 1px at 78% 18%,#fff,transparent),radial-gradient(1.4px 1.4px at 64% 72%,#F3E3B5,transparent),radial-gradient(1px 1px at 30% 80%,#fff,transparent),radial-gradient(1.2px 1.2px at 90% 55%,#F3E3B5,transparent),radial-gradient(1px 1px at 46% 12%,#fff,transparent);opacity:.8;pointer-events:none}
+.nl-copy{position:relative;flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.nl-copy h2{font-size:clamp(34px,4.4vw,52px);line-height:1.05;font-weight:400;color:#FFFFFF}
+.nl-copy h2 em{color:var(--gold-soft)}
+.nl-copy p{color:#D7CFEA;font-size:17px;line-height:28px;max-width:52ch}
+.nl-perks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;color:#E9E3F5;font-size:15px}
+.nl-perks li{display:flex;gap:10px;align-items:center}
+.nl-form{position:relative;flex:1 1 320px;min-width:0;max-width:440px;background:rgba(255,255,255,.06);border:1px solid rgba(226,201,137,.35);border-radius:18px;padding:24px;backdrop-filter:blur(6px)}
+.nl-label{font-size:13px;font-weight:500;color:#E9E3F5;margin-bottom:-6px}
+.nl-form .input{background:rgba(255,255,255,.95);color:#2A2340;border-color:transparent}
+.nl-consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:19px;color:#D7CFEA;cursor:pointer}
+.nl-consent input{width:18px;height:18px;margin-top:1px;accent-color:#C9A24A;flex-shrink:0}
+.nl-err{font-size:13px;color:#FFB4A8}
+.socials{display:flex;gap:8px}
+.social{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;color:var(--text-2);background:var(--surface);transition:color .2s,border-color .2s,box-shadow .2s}
+.social:hover{color:var(--primary);border-color:var(--gold);box-shadow:0 0 14px 2px rgba(226,201,137,.55)}
+.copy em{font-family:var(--f-display);font-size:16px;color:var(--primary)}
+.copy-legal{display:block;font-size:12px;padding-top:2px}
+@media (prefers-reduced-motion:reduce){.nav a.hub-link,.glow-gold{animation:none}}
+/* chart slider */
+.slider{flex:1 1 380px;min-width:0;background:var(--bg-2);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.slider-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.live-stamp{display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 50%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
+.slide{display:flex;flex-direction:column;gap:12px;animation:slideIn .5s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.chart-btn{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:340px;padding:18px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(55% 50% at 50% 45%,var(--glow),transparent 72%),var(--surface);cursor:pointer;transition:box-shadow .2s,transform .2s;color:var(--ink)}
+.chart-btn:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.chart-btn .bg-slot{width:min(220px,62%)}
+.chart-btn .pair{display:flex;gap:10px;width:min(320px,90%)} .chart-btn .pair .bg-slot{width:50%}
+.chart-btn .open-hint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);white-space:nowrap}
+.chart-btn .tier{position:absolute;top:12px;left:12px}
+.chart-btn .lock{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:var(--accent-50);color:var(--accent-ink);display:flex;align-items:center;justify-content:center}
+.chart-btn.night{background:radial-gradient(55% 50% at 50% 45%,rgba(167,150,224,.28),transparent 72%),#1C1730;border-color:#2F2948}
+.chart-btn.night .open-hint{color:#B9AED8}
+.chart-btn.night .bg-svg .open{fill:#262042;stroke:#5A5080}
+.chart-btn.night .bg-svg .ch .base{stroke:#3A3358}
+.moon{position:absolute;top:18px;right:52px;width:22px;height:22px;border-radius:50%;box-shadow:-6px 3px 0 0 #E2C989;transform:rotate(-20deg)}
+.slide-cap{display:flex;flex-direction:column;gap:6px}
+.slide-cap h3{font-size:26px;line-height:1.15}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.act{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:12px;font-variant-numeric:tabular-nums;color:var(--text-2)}
+.act b{font-weight:600;color:var(--ink)}
+.slider-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.nav-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.nav-arrow:hover{color:var(--ink);border-color:var(--gold)}
+.dots{display:flex;gap:2px;flex-wrap:wrap;justify-content:center}
+.dots button{width:28px;height:44px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dots button i{display:block;width:8px;height:8px;border-radius:50%;background:var(--line-2);transition:width .2s,background .2s}
+.dots button[aria-current="true"] i{width:22px;border-radius:4px;background:var(--gold)}
+.bg-svg .tr{stroke:var(--violet);stroke-width:4}
+.bg-svg .open.tr{fill:color-mix(in srgb,var(--violet) 26%,var(--surface))}
+.bg-svg .def.b{fill:url(#hdDefB)}
+.bg-svg .def.off{fill:var(--surface);stroke:var(--open-stroke);stroke-width:2}
+@media (prefers-reduced-motion:reduce){.slide{animation:none}.live-dot{animation:none}}
+
+/* upgrade modal */
+.modal-back{position:fixed;inset:0;z-index:60;background:rgba(26,21,40,.45);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal-back[hidden]{display:none!important}
+.modal{position:relative;width:min(460px,100%);background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:36px 28px 26px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;animation:slideIn .35s ease}
+.modal-x{position:absolute;top:8px;right:8px;width:44px;height:44px;border:none;background:none;font-size:26px;line-height:1;color:var(--text-3);cursor:pointer;border-radius:50%}
+.modal-x:hover{background:var(--bg-2);color:var(--ink)}
+
+/* cart */
+.cart-link{position:relative;display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;text-decoration:none;transition:transform .2s}
+.cart-link svg{filter:drop-shadow(0 4px 4px rgba(90,62,10,.28))}
+.cart-link:hover{transform:translateY(-2px) rotate(-4deg)}
+.cart-link:active{transform:translateY(1px)}
+.cart-link[aria-current="page"] svg{filter:drop-shadow(0 4px 4px rgba(90,62,10,.28)) drop-shadow(0 0 1px var(--gold))}
+.cart-count{position:absolute;top:-6px;right:-6px;z-index:1;box-shadow:0 0 0 2px var(--bg);background:var(--night) !important;color:#F6E2A6 !important;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--gold);color:#221B38;font:600 11px/18px var(--f-body);text-align:center;font-variant-numeric:tabular-nums}
+.cart-count.bump{animation:bump .4s ease}
+@keyframes bump{40%{transform:scale(1.35)}}
+@media (prefers-reduced-motion:reduce){.cart-count.bump{animation:none}}
+.cart-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.cart-item{display:flex;gap:16px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.cart-thumb{width:72px;height:88px;flex-shrink:0;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.cart-item .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.cart-item .info strong{font:500 20px/1.2 var(--f-display)}
+.remove-btn{min-height:44px;padding:0 12px;border:none;background:none;color:var(--text-3);font:500 13px var(--f-body);cursor:pointer;border-radius:8px}
+.remove-btn:hover{color:var(--ink);background:var(--bg-2)}
+.report-card .card-link{display:flex;flex-direction:column;flex:1;text-decoration:none;color:var(--ink)}
+.report-card .card-link:hover{color:var(--ink)}
+.report-card .buy-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 20px 20px}
+.add-btn{min-height:44px;padding:0 14px;border-radius:2px;border:1px solid var(--gold);background:transparent;color:var(--primary);font:500 12px var(--f-body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.add-btn:hover{background:var(--accent-50)}
+.add-btn.added{background:var(--gold);color:#221B38;border-color:var(--gold)}
+
+/* articles */
+.a-cover{height:180px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.a-cover::after{content:"";position:absolute;inset:auto -20% -60% -20%;height:120%;border-radius:50%;border:1px solid var(--gold-soft);opacity:.6}
+.a-cover svg{position:relative;z-index:1}
+.article-card .tag{position:absolute;top:12px;left:12px;z-index:2;padding:4px 10px;border-radius:999px;background:var(--surface);color:var(--text-2);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.article-card h3{font-size:22px;line-height:1.2}
+.featured-article{display:flex;flex-wrap:wrap;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);transition:box-shadow .2s,transform .2s}
+.featured-article:hover{color:var(--ink);box-shadow:var(--shadow);transform:translateY(-2px)}
+.featured-article .a-cover{flex:1 1 380px;height:auto;min-height:260px}
+.featured-article .fa-body{flex:1 1 380px;min-width:0;padding:clamp(24px,4vw,44px);display:flex;flex-direction:column;justify-content:center;gap:14px}
+.featured-article h2{font-size:clamp(30px,3.6vw,42px);line-height:1.1;font-weight:400}
+.article-cover{border-radius:18px;overflow:hidden;height:clamp(200px,32vw,340px);display:flex;align-items:center;justify-content:center;background:radial-gradient(60% 70% at 50% 40%,var(--glow),transparent 70%),var(--bg-2);border:1px solid var(--line)}
+.article-cover svg{width:clamp(120px,18vw,200px);height:auto}
+.article-body{padding-block:44px 24px;display:flex;flex-direction:column;gap:20px;font-size:18px;line-height:1.75;color:var(--ink)}
+.article-body h2{font-size:30px;line-height:1.2;padding-top:12px}
+.article-body p{max-width:65ch}
+.article-body blockquote{margin:8px 0;padding:6px 0 6px 22px;border-left:2px solid var(--gold);font:italic 400 24px/1.4 var(--f-display);color:var(--primary-ink)}
+.read-cta{background:radial-gradient(60% 90% at 0% 0%,rgba(201,162,74,.25),transparent 70%),var(--night);color:#FFFFFF;border-radius:18px;padding:28px;display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+</style>
+
+<!-- Bodygraph template, cloned into every .bg-slot -->
+<template id="bodygraph"></template>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+      <linearGradient id="hdDef" x1=".2" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#D9CCFA"/><stop offset=".45" stop-color="#9D82EA"/><stop offset="1" stop-color="#7356DB"/></linearGradient>
+      <linearGradient id="hdDefB" x1=".2" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#FBE9B4"/><stop offset=".5" stop-color="#E8C26A"/><stop offset="1" stop-color="#C79A3F"/></linearGradient>
+      <linearGradient id="hdOpen" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" style="stop-color:var(--surface)"/><stop offset="1" style="stop-color:var(--open-shade)"/></linearGradient>
+      <linearGradient id="hdGateGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2D27E"/><stop offset="1" stop-color="#C9962F"/></linearGradient>
+      <linearGradient id="hdGateViolet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8E72E6"/><stop offset="1" stop-color="#5F3FCB"/></linearGradient>
+      <radialGradient id="hdFrame" cx=".5" cy=".45" r=".6"><stop offset="0" style="stop-color:var(--frame-a)"/><stop offset="1" style="stop-color:var(--frame-b)"/></radialGradient>
+  </defs>
+  <!-- Logo: Merkaba (hexagram) + bodygraph spine. The rising violet triangle with its crossbar reads as "A";
+       the bodygraph's vertical spine is the stem of a gold "D" whose bowl is the right half of the orbit. -->
+  <symbol id="mark" viewBox="0 0 48 48">
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 45 L5.5 13 H42.5 Z" stroke="var(--gold)" stroke-width="0.9" opacity=".55"/>
+      <path d="M24 3 L42.5 35 H5.5 Z" stroke="var(--violet)" stroke-width="1.1"/>
+      <line x1="12.5" y1="23.9" x2="35.5" y2="23.9" stroke="var(--violet)" stroke-width="1.1"/>
+      <path d="M24 5.5 A18.5 18.5 0 0 1 24 42.5" stroke="var(--gold)" stroke-width="1.6"/>
+      <line x1="24" y1="5.5" x2="24" y2="42.5" stroke="var(--gold)" stroke-width="0.9"/>
+    </g>
+    <g stroke-linejoin="round">
+      <path d="M24 8 L26.3 11.6 H21.7 Z" fill="var(--bg)" stroke="var(--violet)" stroke-width=".8"/>
+      <path d="M21.7 13.3 H26.3 L24 16.9 Z" fill="var(--bg)" stroke="var(--violet)" stroke-width=".8"/>
+      <rect x="22" y="19" width="4" height="3.4" rx=".6" fill="var(--gold)"/>
+      <path d="M24 25 L27 28.2 L24 31.4 L21 28.2 Z" fill="var(--gold)"/>
+      <path d="M15.6 31 V35.4 L19 33.2 Z" fill="var(--gold)"/>
+      <path d="M32.4 31 V35.4 L29 33.2 Z" fill="var(--bg)" stroke="var(--violet)" stroke-width=".8"/>
+      <rect x="22" y="31.6" width="4" height="3.4" rx=".6" fill="var(--gold)"/>
+      <rect x="22" y="37.4" width="4" height="3.4" rx=".6" fill="var(--gold)"/>
+    </g>
+  </symbol>
+  <symbol id="star" viewBox="0 0 40 40"><path d="M20 6 C21 15 25 19 34 20 C25 21 21 25 20 34 C19 25 15 21 6 20 C15 19 19 15 20 6 Z" fill="currentColor"/></symbol>
+  <symbol id="tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="send" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+
+<!-- ========== PUBLIC SITE ========== -->
+<div id="site">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="#home"><svg width="48" height="48" aria-hidden="true"><use href="#mark"/></svg><span class="logo-text"><span><b>Astral</b> <span>Design</span></span><small class="logo-motto">Beyond limits</small></span></a>
+      <span class="mobile-bar">
+        <span id="mobile-cart-slot"></span>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="main-nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span>Menu</span></button>
+      </span>
+      <nav class="nav" id="main-nav" aria-label="Main">
+        <a href="#software" data-nav="software">Software</a>
+        <a href="#reports" data-nav="reports">Order report</a>
+        <a href="#articles" data-nav="articles">Articles</a>
+        <a href="#ai-library" data-nav="ai-library">AI Library</a>
+        <a href="#pricing" data-nav="pricing">Pricing</a>
+        <a href="#chart" class="hub-link"><svg width="20" height="20" aria-hidden="true"><use href="#mark"/></svg>Astral Hub</a>
+        <a href="#about" data-nav="about">About</a>
+        <a class="cart-link" href="#cart" id="cart-link" aria-label="Cart, empty">
+          <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+            <defs>
+              <linearGradient id="bagFront" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7E3A8"/><stop offset=".45" stop-color="#E0BE6A"/><stop offset="1" stop-color="#B08A35"/></linearGradient>
+              <linearGradient id="bagSide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B8913C"/><stop offset="1" stop-color="#7E5F1E"/></linearGradient>
+              <linearGradient id="bagTop" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8E6C25"/><stop offset="1" stop-color="#6E521A"/></linearGradient>
+              <linearGradient id="bagShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            </defs>
+            <path d="M33 16 L40 13 L40 37 L33 42 Z" fill="url(#bagSide)"/>
+            <path d="M9 16 L33 16 L40 13 L16 13 Z" fill="url(#bagTop)"/>
+            <path d="M9 16 H33 V42 H9 Z" fill="url(#bagFront)"/>
+            <path d="M12 18 H15 V39 H12 Z" fill="url(#bagShine)" opacity=".8"/>
+            <path d="M15 20 V12.5 a6 6 0 0 1 12 0 V20" fill="none" stroke="#6E521A" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M15 20 V12.5 a6 6 0 0 1 12 0 V20" fill="none" stroke="#F3D891" stroke-width="1" stroke-linecap="round" transform="translate(-.6 -.4)"/>
+            <circle cx="15" cy="20" r="1.6" fill="#6E521A"/><circle cx="27" cy="20" r="1.6" fill="#6E521A"/>
+            <path d="M21 25.5 C21.5 29 23 30.5 26.5 31 C23 31.5 21.5 33 21 36.5 C20.5 33 19 31.5 15.5 31 C19 30.5 20.5 29 21 25.5 Z" fill="#FFF6DA" opacity=".9"/>
+          </svg>
+          <span class="cart-count" id="cart-count" hidden>0</span>
+        </a>
+        <a href="#chart" class="nav-login">Log in</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-sm header-cta" href="#signup">Get your free chart</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HOME -->
+    <section data-view="home">
+      <div class="hero2">
+        <canvas class="neutrino" id="neutrino" aria-hidden="true"></canvas>
+        <svg class="waves" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true"><path d="M0 160 C 300 80, 520 250, 760 170 S 1180 90, 1440 180"/></svg>
+        <div class="wrap">
+          <button type="button" class="stage" id="stage" aria-label="Replay: the Merkaba turns and opens into a Human Design bodygraph" style="border:none;background:none;padding:0;display:block">
+            <span class="halo" aria-hidden="true"></span>
+            <svg class="merkaba" id="merkaba" viewBox="-1.75 -1.75 3.5 3.5" aria-hidden="true"><g id="mk-lines"></g><circle class="core" r=".04"/></svg>
+            <span class="hero-bg bg-slot" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="wrap hero-copy2">
+          <span class="eyebrow">Know your limitations and then move beyond them</span>
+          <h1 class="one-line">Explore your <em>original Blueprint</em></h1>
+          <p class="lead">Precise Human Design software, beautifully written personal reports and an AI library that answers your questions — all from your birth data.</p>
+          <div class="ornament" aria-hidden="true"><i></i><b></b><i></i></div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px 20px;justify-content:center;align-items:center">
+            <a class="btn btn-primary btn-lg" href="#signup">Get your free chart</a>
+            <a class="text-cta" href="#software">Explore the software →</a>
+          </div>
+          <p class="xs">Free chart · No card needed · Cancel paid plans anytime</p>
+        </div>
+      </div>
+      <div class="wrap" style="padding-block:64px 88px;display:flex;justify-content:center">
+        <div class="hero-visual" style="flex:0 1 560px">
+          <div class="mock">
+            <div class="mock-bar"><span>Current Cosmos</span><span class="xs live-stamp" style="font-weight:500"><i class="live-dot" aria-hidden="true"></i><span id="cosmos-time">Just Now</span></span></div>
+            <div class="mock-body">
+              <div style="flex:1 1 200px"><div class="bg-slot" id="cosmos-bg" style="max-width:240px"></div></div>
+              <div style="flex:1 1 170px;display:flex;flex-direction:column;gap:10px">
+                <p class="xs" style="margin:0">The sky right now, mapped onto the bodygraph.</p>
+                <div class="stack" style="gap:8px" id="cosmos-facts" aria-live="polite"></div>
+                <p class="xs" id="cosmos-chan" style="margin:0"></p>
+                <a href="#signup" class="arrow-link" style="font-size:14px;padding-block:4px">See how it touches your chart →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="band">
+        <div class="wrap section stack" style="gap:40px">
+          <div class="stack" style="gap:12px">
+            <span class="eyebrow">One place for your design</span>
+            <h2 style="font-size:40px;line-height:48px">Three ways to go deeper</h2>
+          </div>
+          <div class="grid-auto">
+            <div class="card product">
+              <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 8.5h18"/><path d="M12 11.5l1.2 2.6 2.8.3-2.1 1.8.6 2.7L12 17.5l-2.5 1.4.6-2.7-2.1-1.8 2.8-.3z"/></svg></div>
+              <span class="eyebrow">Subscription</span>
+              <h3 style="font-size:22px">Astral software</h3>
+              <p>Your full bodygraph, centers, gates, channels and profile — plus daily transits and connection charts with the people in your life.</p>
+              <a class="arrow-link" href="#software">Explore the software →</a>
+            </div>
+            <div class="card product">
+              <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h7M9 17h5"/></svg></div>
+              <span class="eyebrow">One-time purchase</span>
+              <h3 style="font-size:22px">Personal reports</h3>
+              <p>In-depth PDF reports on your Type, relationships, career or year ahead — written for your exact chart, ready to keep.</p>
+              <a class="arrow-link" href="#reports">Browse reports →</a>
+            </div>
+            <div class="card product">
+              <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M11 4h7.5A1.5 1.5 0 0 1 20 5.5V11"/><path d="M17 14l.9 2.1 2.1.9-2.1.9L17 20l-.9-2.1-2.1-.9 2.1-.9z"/></svg></div>
+              <span class="eyebrow">Included in Plus &amp; Practitioner</span>
+              <h3 style="font-size:22px">AI Library</h3>
+              <p>Ask questions in your own words. Answers use your chart and a curated Human Design library, with the sources shown.</p>
+              <a class="arrow-link" href="#ai-library">See how it works →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap section stack" style="gap:40px">
+        <div class="stack" style="gap:12px;align-items:center;text-align:center">
+          <span class="eyebrow">Inside Astral Hub</span>
+          <h2 style="font-size:40px;line-height:48px">The modules of the software</h2>
+          <p class="muted" style="max-width:56ch">Start with the free modules. Plus and Practitioner unlock the rest.</p>
+        </div>
+        <div class="modules">
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l3 5H9z"/><rect x="9.5" y="10" width="5" height="4" rx="1"/><path d="M12 15.5l2.5 2.5-2.5 2.5-2.5-2.5z"/></svg></div><span class="pill pill-ok" style="font-size:11px;padding:3px 10px">Free</span></div>
+            <h3>Bodygraph</h3>
+            <p>Your natal chart: Type, Strategy, Authority, Profile, Definition and all nine centers, explained in plain language.</p>
+          </article>
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M7.6 7.6l8.8 8.8"/><circle cx="18" cy="6" r="1.4"/><path d="M6 18h6"/></svg></div><span class="pill pill-amber" style="font-size:11px;padding:3px 10px">Plus</span></div>
+            <h3>Gates & Channels</h3>
+            <p>Every activated gate and channel, with planet, line and the theme it brings — tap any element to read about it.</p>
+          </article>
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div><span class="pill pill-ok" style="font-size:11px;padding:3px 10px">Free</span></div>
+            <h3>Live Transits</h3>
+            <p>The Current Cosmos minute by minute, and how today’s planets light up centers in your own chart.</p>
+          </article>
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><circle cx="15" cy="15" r="1.4" fill="currentColor" stroke="none"/></svg></div><span class="pill pill-amber" style="font-size:11px;padding:3px 10px">Plus</span></div>
+            <h3>Transit Calendar</h3>
+            <p>A month view of the gates the Sun and Moon move through, with alerts when a transit completes one of your channels.</p>
+          </article>
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/></svg></div><span class="pill pill-amber" style="font-size:11px;padding:3px 10px">Plus</span></div>
+            <h3>Connection Charts</h3>
+            <p>Two designs side by side: electromagnetic attraction, compromise, companionship and dominance.</p>
+          </article>
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></div><span class="pill pill-amber" style="font-size:11px;padding:3px 10px">Plus</span></div>
+            <h3>Dream Rave</h3>
+            <p>Your sleep-state chart and tonight’s transits through it.</p>
+          </article>
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M11 4h7.5A1.5 1.5 0 0 1 20 5.5V11"/><path d="M17 14l.9 2.1 2.1.9-2.1.9L17 20l-.9-2.1-2.1-.9 2.1-.9z"/></svg></div><span class="pill pill-amber" style="font-size:11px;padding:3px 10px">Plus</span></div>
+            <h3>AI Library</h3>
+            <p>Ask questions in your own words. Answers come from your chart and a curated library, with sources shown.</p>
+          </article>
+          <article class="card module">
+            <div class="module-top"><div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 5.5a3 3 0 0 1 0 5.6M17.5 14.5a5 5 0 0 1 3 4.5"/></svg></div><span class="pill pill-indigo" style="font-size:11px;padding:3px 10px">Practitioner</span></div>
+            <h3>Client Studio</h3>
+            <p>Unlimited client charts, notes per session, branded PDF exports and your own uploaded library for the AI.</p>
+          </article>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px 20px;justify-content:center;align-items:center">
+          <a class="btn btn-primary" href="#chart">Open Astral Hub</a>
+          <a class="text-cta" href="#pricing">Compare plans →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOFTWARE (feature page) -->
+    <section data-view="software">
+      <div class="wrap" style="padding-block:64px 88px">
+        <div class="feature-box">
+          <div class="stack" style="gap:18px">
+            <span class="eyebrow">Software · subscription</span>
+            <h1 style="font-size:clamp(32px,4vw,44px);line-height:1.12">Every layer of your chart, explained in plain words</h1>
+            <ul class="stack" style="list-style:none;margin:0;padding:0;gap:12px">
+              <li class="check"><svg width="22" height="22" aria-hidden="true"><use href="#tick"/></svg>Interactive bodygraph — tap any center to learn what it means for you</li>
+              <li class="check"><svg width="22" height="22" aria-hidden="true"><use href="#tick"/></svg>Type, Strategy, Authority, Profile and Incarnation Cross</li>
+              <li class="check"><svg width="22" height="22" aria-hidden="true"><use href="#tick"/></svg>Daily transits and how they touch your chart</li>
+              <li class="check"><svg width="22" height="22" aria-hidden="true"><use href="#tick"/></svg>Connection charts for partners, family and teams</li>
+              <li class="check"><svg width="22" height="22" aria-hidden="true"><use href="#tick"/></svg>Save charts for friends and clients</li>
+              <li class="check"><svg width="22" height="22" aria-hidden="true"><use href="#tick"/></svg>Export your chart as PNG or PDF</li>
+            </ul>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;padding-top:6px;align-items:center">
+              <button type="button" class="btn btn-primary btn-lg" id="buy-sw-jump">Reveal your destiny</button>
+              <a class="btn btn-secondary btn-lg" href="#signup">Start free</a>
+            </div>
+            <a class="text-cta" href="#chart" style="align-self:flex-start;padding-left:0">Open Astral Hub →</a>
+          </div>
+          <section class="slider" id="chart-slider" aria-roledescription="carousel" aria-label="Chart types in Astral Hub">
+            <div class="slider-top">
+              <span class="eyebrow">Charts in Astral Hub</span>
+              <span class="xs live-stamp"><i class="live-dot" aria-hidden="true"></i><span id="live-time">Calculating…</span></span>
+            </div>
+            <div class="slides" id="slides" aria-live="polite"></div>
+            <div class="slider-nav">
+              <button type="button" class="nav-arrow" id="slide-prev" aria-label="Previous chart type"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <div class="dots" id="slide-dots" role="group" aria-label="Choose chart type"></div>
+              <button type="button" class="nav-arrow" id="slide-next" aria-label="Next chart type"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="band" id="buy-software" tabindex="-1">
+        <div class="wrap section stack" style="gap:32px">
+          <div class="stack" style="gap:14px;align-items:center;text-align:center">
+            <span class="eyebrow">Reveal your destiny</span>
+            <h2 style="font-size:clamp(32px,4vw,44px);line-height:1.1">Choose your Astral plan</h2>
+            <p class="muted" style="max-width:52ch">Full access from the moment you subscribe. Cancel anytime from your account.</p>
+            <div class="seg" role="group" aria-label="Billing period">
+              <button type="button" data-swbill="monthly" aria-pressed="false">Monthly</button>
+              <button type="button" data-swbill="yearly" aria-pressed="true">Yearly <span class="save">· save [XX]%</span></button>
+            </div>
+          </div>
+          <div class="grid-auto" style="max-width:860px;margin:0 auto;width:100%">
+            <div class="card plan featured">
+              <span class="pill pill-amber badge">Most popular</span>
+              <div class="stack" style="gap:6px"><h3 style="font-size:28px">Plus</h3><p class="small muted">For living your own design every day.</p></div>
+              <div class="price"><strong>€[XX]</strong><span class="xs" data-swper>/ month, billed yearly</span></div>
+              <ul><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Full chart, transits &amp; connection charts</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>AI Library — [XX] questions / month</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>[XX]% off personal reports</li></ul>
+              <button type="button" class="btn btn-primary btn-lg btn-block" data-buyplan="plus">Buy Plus</button>
+            </div>
+            <div class="card plan">
+              <div class="stack" style="gap:6px"><h3 style="font-size:28px">Practitioner</h3><p class="small muted">For readers, coaches and teachers.</p></div>
+              <div class="price"><strong>€[XX]</strong><span class="xs" data-swper>/ month, billed yearly</span></div>
+              <ul><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Everything in Plus</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Unlimited client charts &amp; branded PDFs</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Upload your own library · unlimited AI</li></ul>
+              <button type="button" class="btn btn-secondary btn-lg btn-block" data-buyplan="practitioner">Buy Practitioner</button>
+            </div>
+          </div>
+          <p class="xs" style="text-align:center">Not ready yet? <a href="#signup">Start with the free chart</a> · <a href="#pricing">Compare all plans</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI LIBRARY (feature page) -->
+    <section data-view="ai-library">
+      <div class="night">
+        <div class="wrap section" style="display:flex;flex-wrap:wrap;gap:56px;align-items:center">
+          <div class="stack" style="flex:1 1 400px;min-width:0;gap:18px">
+            <span class="eyebrow">AI Library</span>
+            <h1 style="font-size:clamp(32px,4vw,44px);line-height:1.12">Ask anything about your design. Get answers grounded in real sources.</h1>
+            <p class="lead">The AI reads your chart and a curated Human Design library, then answers in plain language — and shows which passages it used. Practitioners can add their own books and notes.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px"><span class="pill">Knows your chart</span><span class="pill">Cites its sources</span><span class="pill">Upload your own library</span></div>
+            <div style="padding-top:8px"><a class="btn btn-primary" href="#library">Try it in the demo app</a></div>
+          </div>
+          <div class="chat-demo" style="flex:1 1 420px;min-width:0">
+            <div class="bubble-me">As a Generator with Sacral authority, how should I decide on a new job offer?</div>
+            <div class="ai">
+              <div class="ai-avatar"><svg width="18" height="18" aria-hidden="true" style="color:var(--on-primary)"><use href="#star"/></svg></div>
+              <div class="ai-body">
+                <p>Your Sacral responds in the moment, so hear the offer as simple yes/no questions — “Do I want this team?”, “Do I want this work every day?” — and notice your gut sound before your mind weighs in.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="src">Library · Sacral authority</span><span class="src">Your chart · Gate 34</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- shared home-only extras: reports teaser, FAQ, CTA -->
+    <section data-view="home">
+      <div class="wrap section stack" style="gap:36px;padding-top:0">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+          <div class="stack" style="gap:12px"><span class="eyebrow">Personal reports</span><h2 style="font-size:40px;line-height:48px">Your design, written just for you</h2></div>
+          <a class="arrow-link" href="#reports">Browse all reports →</a>
+        </div>
+        <div class="grid-auto" id="home-reports"></div>
+      </div>
+      <div class="wrap section stack" style="gap:36px;padding-top:0">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+          <div class="stack" style="gap:12px"><span class="eyebrow">Articles</span><h2 style="font-size:40px;line-height:48px">Learn Human Design, one idea at a time</h2></div>
+          <a class="arrow-link" href="#articles">Read all articles →</a>
+        </div>
+        <div class="grid-auto" id="home-articles"></div>
+      </div>
+      <div class="band">
+        <div class="wrap section faq" style="max-width:820px">
+          <h2 style="font-size:36px;line-height:44px;text-align:center;padding-bottom:28px">Often Asked Questions</h2>
+          <div class="stack" style="gap:10px">
+            <details><summary>What is Astral Design?</summary><p>Astral Design is a home for Human Design. It brings together Astral Hub — software that calculates and explains your chart — personal reports written for your exact chart, and an AI Library that answers your questions with sources. Your free chart is the starting point for all of it.</p></details>
+            <details><summary>How is Human Design connected to Astral Design?</summary><p>Human Design is the system; Astral Design is how we help you use it. Everything we make — the bodygraph in Astral Hub, the transits, the reports and the AI answers — is calculated from your birth data according to Human Design and explained in plain language, so you can apply it in your daily life.</p></details>
+            <details><summary>What is Human Design?</summary><p>A system that brings together astrology, the I Ching, the Kabbalah and the chakra system in one chart, calculated from your birth data. It is a tool for self-reflection.</p></details>
+            <details><summary>Why do I need my exact birth time?</summary><p>Several parts of the chart change within minutes. If you only know an approximate time, we show which parts of your chart may differ.</p></details>
+            <details><summary>Is the free chart really free?</summary><p>Yes. Your bodygraph, Type, Strategy and Authority are free forever. Paid plans add transits, connection charts, the AI Library and more.</p></details>
+            <details><summary>How does the AI Library use my data?</summary><p>It reads your chart only to answer your questions. [Short summary of the privacy policy — to be confirmed with legal.]</p></details>
+            <details><summary>Can I cancel anytime?</summary><p>Yes. Cancel from your account at any time and keep access until the end of the paid period.</p></details>
+          </div>
+        </div>
+      </div>
+      <div class="wrap section">
+        <div class="cta-band">
+          <h2 style="font-size:clamp(30px,4vw,40px);line-height:1.2">Your chart is one minute away</h2>
+          <p>Birth date, time and place. That's all it takes to see your Type, Strategy and Authority.</p>
+          <a class="btn btn-lg" href="#signup">Get your free chart</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARTICLES -->
+    <section data-view="articles">
+      <div class="wrap stack" style="gap:16px;padding-block:64px 28px;align-items:center;text-align:center">
+        <span class="eyebrow">Articles</span>
+        <h1 style="font-size:clamp(38px,5vw,60px);line-height:1.05;font-weight:400">The Astral <em style="color:var(--primary)">Journal</em></h1>
+        <p class="lead" style="text-align:center">Clear, grounded writing on Human Design — Types, Authority, centers, profiles and the transits moving through your chart.</p>
+        <div class="ornament" aria-hidden="true"><i></i><b></b><i></i></div>
+      </div>
+      <div class="wrap" style="padding-bottom:36px">
+        <a href="#article" class="featured-article" id="featured-article"></a>
+      </div>
+      <div class="wrap" style="padding-bottom:24px">
+        <div class="chips" role="group" aria-label="Topic" id="article-chips" style="justify-content:center"></div>
+      </div>
+      <div class="wrap" style="padding-bottom:88px">
+        <div class="grid-reports" id="article-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- SINGLE ARTICLE -->
+    <section data-view="article">
+      <article class="reading">
+        <div class="wrap" style="max-width:760px;padding-block:28px 0">
+          <nav aria-label="Breadcrumb" class="small" style="color:var(--text-3)"><a href="#articles" style="text-decoration:none">Articles</a> / <span id="ar-crumb"></span></nav>
+        </div>
+        <header class="wrap stack" style="max-width:760px;gap:18px;padding-block:28px 32px">
+          <span class="eyebrow" id="ar-meta"></span>
+          <h1 id="ar-title" style="font-size:clamp(36px,5vw,56px);line-height:1.06;font-weight:400"></h1>
+          <p class="lead" id="ar-lead"></p>
+          <div style="display:flex;align-items:center;gap:12px;padding-top:4px">
+            <svg width="36" height="36" aria-hidden="true"><use href="#mark"/></svg>
+            <span class="stack"><span style="font-size:14px;font-weight:500">Astral Design Journal</span><span class="xs" id="ar-time"></span></span>
+          </div>
+        </header>
+        <div class="wrap" style="max-width:1000px"><div class="article-cover" id="ar-cover"><svg width="200" height="200" aria-hidden="true"><use href="#mark"/></svg></div></div>
+        <div class="wrap article-body" id="ar-body" style="max-width:700px"></div>
+        <div class="wrap" style="max-width:700px;padding-block:8px 64px">
+          <div class="read-cta">
+            <div class="stack" style="gap:6px;flex:1 1 280px;min-width:0">
+              <strong style="font:500 24px/1.2 var(--f-display)">See this in your own chart</strong>
+              <span class="small" style="color:var(--night-text)">Your free bodygraph shows your Type, Authority and every center in seconds.</span>
+            </div>
+            <a class="btn btn-primary" href="#signup">Get your free chart</a>
+          </div>
+        </div>
+      </article>
+      <div class="band">
+        <div class="wrap section stack" style="gap:28px">
+          <h2 style="font-size:32px">Keep reading</h2>
+          <div class="grid-auto" id="ar-related"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section data-view="about">
+      <div class="hero2" style="padding-block:72px 64px">
+        <div class="wrap hero-copy2" style="margin-top:0">
+          <svg width="112" height="112" aria-hidden="true"><use href="#mark"/></svg>
+          <span class="eyebrow">About Astral Design</span>
+          <h1>Ancient wisdom,<br><em>modern precision.</em></h1>
+          <p class="lead">Astral Design was created to make Human Design clear, beautiful and genuinely useful — software you can trust, reports worth keeping and an AI that shows its sources.</p>
+          <div class="ornament" aria-hidden="true"><i></i><b></b><i></i></div>
+        </div>
+      </div>
+
+      <div class="wrap section stack" style="gap:40px">
+        <div class="stack" style="gap:12px;align-items:center;text-align:center">
+          <span class="eyebrow">What we believe</span>
+          <h2 style="font-size:40px;line-height:48px">Three principles behind everything we make</h2>
+        </div>
+        <div class="grid-auto">
+          <div class="card product" style="text-align:left">
+            <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
+            <h3 style="font-size:24px">Precision first</h3>
+            <p>Every chart is calculated from your exact birth time and place, with time zones and daylight saving handled for you. If your time is uncertain, we tell you which parts of the chart may change.</p>
+          </div>
+          <div class="card product">
+            <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg></div>
+            <h3 style="font-size:24px">Clear language</h3>
+            <p>Human Design has its own vocabulary. We explain every term the first time you meet it, so the chart becomes something you can live with — not decode.</p>
+          </div>
+          <div class="card product">
+            <div class="icon-tile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+            <h3 style="font-size:24px">Your data stays yours</h3>
+            <p>Your birth data is used to calculate your chart and answer your questions — nothing else. You can edit or delete it from your account at any time.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="band">
+        <div class="wrap section" style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
+          <div style="flex:1 1 320px;display:flex;justify-content:center">
+            <div style="width:min(340px,100%);aspect-ratio:4/5;border-radius:200px 200px 18px 18px;background:radial-gradient(60% 60% at 50% 35%,var(--glow),transparent 70%),var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center">
+              <svg width="120" height="120" aria-hidden="true"><use href="#mark"/></svg>
+              <span class="xs">[Founder photo]</span>
+            </div>
+          </div>
+          <div class="stack" style="flex:1 1 440px;min-width:0;gap:18px">
+            <span class="eyebrow">The founder</span>
+            <h2 style="font-size:40px;line-height:1.1">[Your name]</h2>
+            <p class="muted" style="font-size:17px;line-height:28px">[Your story — how you found Human Design, what changed for you, and why you decided to build Astral Design. Two or three short paragraphs work best.]</p>
+            <blockquote style="margin:0;padding:4px 0 4px 20px;border-left:2px solid var(--gold);font:italic 400 24px/1.4 var(--f-display);color:var(--primary-ink)">[A short personal line that captures why this work matters to you.]</blockquote>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap section stack" style="gap:36px">
+        <div class="stack" style="gap:12px;align-items:center;text-align:center">
+          <span class="eyebrow">What we make</span>
+          <h2 style="font-size:40px;line-height:48px">Software, reports and a library that answers</h2>
+        </div>
+        <div class="grid-auto">
+          <a class="card product" href="#software" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">Subscription</span><h3 style="font-size:24px">Astral software</h3><p>Your full bodygraph, transits and connection charts.</p><span class="arrow-link">Explore →</span></a>
+          <a class="card product" href="#reports" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">One-time</span><h3 style="font-size:24px">Personal reports</h3><p>In-depth PDF reports written for your exact chart.</p><span class="arrow-link">Order report →</span></a>
+          <a class="card product" href="#ai-library" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">Plus &amp; Practitioner</span><h3 style="font-size:24px">AI Library</h3><p>Questions answered from your chart and real sources.</p><span class="arrow-link">See how →</span></a>
+        </div>
+      </div>
+
+      <div class="wrap" style="padding-bottom:96px">
+        <div class="cta-band">
+          <span class="eyebrow" style="color:var(--gold-soft)">Contact</span>
+          <h2 style="font-size:clamp(30px,4vw,40px);line-height:1.2">Questions, partnerships or press?</h2>
+          <p>Write to us at <strong style="user-select:all">[hello@astral-design.com]</strong> — we usually reply within [X] working days.</p>
+          <a class="btn btn-lg" href="#signup">Get your free chart</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CART -->
+    <section data-view="cart">
+      <div class="wrap stack" style="gap:10px;padding-block:56px 28px">
+        <span class="eyebrow">Your cart</span>
+        <h1 style="font-size:clamp(34px,4.5vw,52px);line-height:1.1;font-weight:400" id="cart-heading">Cart</h1>
+      </div>
+      <div class="wrap" style="padding-bottom:88px">
+        <div id="cart-empty" class="card stack" style="align-items:center;text-align:center;gap:14px;padding:56px 24px" hidden>
+          <svg width="88" height="88" aria-hidden="true"><use href="#mark"/></svg>
+          <h2 style="font-size:28px">Your cart is empty</h2>
+          <p class="muted" style="max-width:44ch">Add a personal report for yourself, or as a gift for someone you love.</p>
+          <a class="btn btn-primary" href="#reports">Browse reports</a>
+        </div>
+        <div id="cart-full" class="detail" style="padding-block:0">
+          <div class="detail-main" style="gap:20px">
+            <ul class="cart-list" id="cart-list" aria-label="Items in your cart"></ul>
+            <a href="#reports" class="arrow-link" style="align-self:flex-start">← Continue shopping</a>
+          </div>
+          <form class="card checkout" id="checkout" novalidate aria-label="Checkout">
+            <h2 style="font-size:24px">Order summary</h2>
+            <div class="stack" style="gap:8px;font-size:15px" id="cart-lines"></div>
+            <div class="stack" style="gap:8px;border-top:1px solid var(--line);padding-top:14px;font-size:15px">
+              <div class="sum"><span class="muted">Plus member discount</span><span style="color:var(--ok)">−[XX]%</span></div>
+              <div class="sum" style="font-weight:600;font-size:17px;padding-top:4px"><span>Total</span><span>[TOTAL]</span></div>
+            </div>
+            <div class="field" style="flex-direction:row;gap:8px">
+              <label for="promo" class="sr">Promo code</label>
+              <input class="input" id="promo" placeholder="Promo code" style="flex:1;min-width:0">
+              <button type="button" class="btn btn-secondary btn-sm" id="promo-apply">Apply</button>
+            </div>
+            <div class="field">
+              <label for="co-email">Email for delivery</label>
+              <input class="input" id="co-email" type="email" value="alex@email.com" required>
+            </div>
+            <div class="field">
+              <label for="co-card">Card details</label>
+              <input class="input" id="co-card" inputmode="numeric" placeholder="Card number" style="border-radius:10px 10px 0 0">
+              <div style="display:flex;margin-top:-7px">
+                <label for="co-exp" class="sr">Expiry date</label><input class="input" id="co-exp" placeholder="MM / YY" style="border-radius:0 0 0 10px;flex:1;min-width:0">
+                <label for="co-cvc" class="sr">Security code</label><input class="input" id="co-cvc" placeholder="CVC" style="border-radius:0 0 10px 0;border-left:none;flex:1;min-width:0">
+              </div>
+              <span class="xs">Demo only — handled by [payment provider] on the live site. Do not enter real card details.</span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="pay-btn">Pay</button>
+            <p class="xs" style="text-align:center">By paying you agree to our <a href="#home">Terms</a> and <a href="#home">Refund policy</a>.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section data-view="pricing">
+      <div class="wrap stack" style="align-items:center;text-align:center;gap:16px;padding-block:72px 40px">
+        <span class="eyebrow">Pricing</span>
+        <h1 style="font-size:clamp(34px,4.5vw,52px);line-height:1.1">Start free. Upgrade when you're ready.</h1>
+        <p class="lead">Simple plans for personal exploration and for professional readers. Personal reports are sold separately.</p>
+        <div class="seg" role="group" aria-label="Billing period" style="margin-top:10px">
+          <button type="button" data-bill="monthly" aria-pressed="false">Monthly</button>
+          <button type="button" data-bill="yearly" aria-pressed="true">Yearly <span class="save">· save [XX]%</span></button>
+        </div>
+      </div>
+      <div class="wrap" style="padding-bottom:80px">
+        <div class="grid-auto" style="align-items:stretch">
+          <div class="card plan">
+            <div class="stack" style="gap:6px"><h2 style="font-size:22px">Free</h2><p class="small muted">Meet your design.</p></div>
+            <div class="price"><strong>€0</strong><span class="xs">forever</span></div>
+            <a class="btn btn-secondary" href="#signup">Get your free chart</a>
+            <ul><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Your bodygraph</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Type, Strategy &amp; Authority</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Profile and defined centers</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>1 saved chart</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>3 AI Library questions</li></ul>
+          </div>
+          <div class="card plan featured">
+            <span class="pill pill-amber badge">Most popular</span>
+            <div class="stack" style="gap:6px"><h2 style="font-size:22px">Plus</h2><p class="small muted">Live your design every day.</p></div>
+            <div class="price"><strong>€[XX]</strong><span class="xs" data-per>/ month, billed yearly</span></div>
+            <a class="btn btn-primary" href="#signup">Start free trial</a>
+            <ul><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Everything in Free</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Full chart: gates, channels, Incarnation Cross</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Daily transits on your chart</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Connection charts</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>AI Library — [XX] questions / month</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>[XX]% off personal reports</li></ul>
+          </div>
+          <div class="card plan">
+            <div class="stack" style="gap:6px"><h2 style="font-size:22px">Practitioner</h2><p class="small muted">For readers, coaches and teachers.</p></div>
+            <div class="price"><strong>€[XX]</strong><span class="xs" data-per>/ month, billed yearly</span></div>
+            <a class="btn btn-secondary" href="#signup">Start free trial</a>
+            <ul><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Everything in Plus</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Unlimited client charts</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Branded PDF charts for clients</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Upload your own books &amp; notes to the AI</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Unlimited AI Library questions</li><li class="check"><svg width="20" height="20" aria-hidden="true"><use href="#tick"/></svg>Priority support</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="wrap stack" style="gap:24px;padding-bottom:88px">
+        <h2 style="font-size:28px">Compare plans</h2>
+        <div class="table-box">
+          <table>
+            <thead><tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col">Plus</th><th scope="col">Practitioner</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Bodygraph &amp; Type</th><td>Yes</td><td class="hl">Yes</td><td>Yes</td></tr>
+              <tr><th scope="row">Gates, channels, variables</th><td>—</td><td class="hl">Yes</td><td>Yes</td></tr>
+              <tr><th scope="row">Daily transits</th><td>—</td><td class="hl">Yes</td><td>Yes</td></tr>
+              <tr><th scope="row">Connection charts</th><td>—</td><td class="hl">Yes</td><td>Yes</td></tr>
+              <tr><th scope="row">Saved charts</th><td>1</td><td class="hl">[XX]</td><td>Unlimited</td></tr>
+              <tr><th scope="row">AI Library questions</th><td>3 total</td><td class="hl">[XX] / month</td><td>Unlimited</td></tr>
+              <tr><th scope="row">Own library upload</th><td>—</td><td class="hl">—</td><td>Yes</td></tr>
+              <tr><th scope="row">Branded client PDFs</th><td>—</td><td class="hl">—</td><td>Yes</td></tr>
+              <tr><th scope="row">Report discount</th><td>—</td><td class="hl">[XX]%</td><td>[XX]%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPORTS -->
+    <section data-view="reports">
+      <div class="wrap" style="display:flex;flex-wrap:wrap;gap:24px 48px;align-items:flex-end;justify-content:space-between;padding-block:64px 32px">
+        <div class="stack" style="flex:1 1 480px;min-width:0;gap:14px">
+          <span class="eyebrow">Personal reports</span>
+          <h1 style="font-size:clamp(34px,4.5vw,52px);line-height:1.1">Reports written for your exact chart</h1>
+          <p class="lead">One-time purchase. Delivered as a beautifully designed PDF to your inbox and your account — yours to keep.</p>
+        </div>
+        <div style="flex:0 1 360px;background:var(--accent-50);border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:center;color:var(--accent-ink)">
+          <svg width="26" height="26" aria-hidden="true" style="flex-shrink:0;color:var(--accent)"><use href="#star"/></svg>
+          <p class="small"><strong>Plus &amp; Practitioner members</strong> save [XX]% on every report.</p>
+        </div>
+      </div>
+      <div class="wrap" style="padding-bottom:28px">
+        <div class="chips" role="group" aria-label="Category" id="report-chips"></div>
+      </div>
+      <div class="wrap" style="padding-bottom:88px">
+        <div class="grid-reports" id="report-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- REPORT DETAIL + CHECKOUT -->
+    <section data-view="report">
+      <div class="wrap">
+        <nav aria-label="Breadcrumb" class="small" style="padding-top:28px;color:var(--text-3)"><a href="#reports" style="text-decoration:none">Order report</a> / <span id="rd-crumb">Foundation Report</span></nav>
+        <div class="detail">
+          <div class="detail-main">
+            <div id="rd-hero" style="border-radius:24px;padding:44px 24px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;background:var(--primary-50)">
+              <div class="book" style="justify-content:space-between">
+                <svg width="44" height="44" aria-hidden="true"><use href="#mark"/></svg>
+                <div class="stack" style="gap:6px">
+                  <span class="eyebrow" style="font-size:10px" id="rd-book-title">Foundation Report</span>
+                  <div style="font:600 24px/30px var(--f-display)">Alex Morgan</div>
+                  <div class="xs">Generator · 3/5 · Sacral authority</div>
+                </div>
+              </div>
+              <div class="book" style="gap:10px">
+                <div style="font:600 14px var(--f-display)">2 · Your Strategy</div>
+                <div class="line"></div><div class="line" style="width:92%"></div><div class="line" style="width:96%"></div><div class="line" style="width:70%"></div>
+                <div style="margin:8px 0;border-radius:8px;background:var(--bg-2);padding:12px;font-size:11px;line-height:16px;color:var(--primary-ink)">Wait to respond — let life bring the question first.</div>
+                <div class="line"></div><div class="line" style="width:84%"></div><div class="line" style="width:90%"></div>
+              </div>
+            </div>
+            <div class="stack" style="gap:14px">
+              <h1 style="font-size:40px;line-height:48px" id="rd-title">Foundation Report</h1>
+              <p class="lead" id="rd-desc">The essential guide to your design. Understand how your energy works, how you're built to make decisions, and where you take in or amplify the world around you.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px"><span class="pill pill-soft">PDF · ~[XX] pages</span><span class="pill pill-soft">Delivered to inbox &amp; account</span><span class="pill pill-soft">English</span></div>
+            </div>
+            <div class="stack" style="gap:16px">
+              <h2 style="font-size:24px">What's inside</h2>
+              <ol class="chapters">
+                <li><span class="n">01</span><span class="stack"><strong style="font-weight:600">Your Type</strong><span class="small muted">How your energy is designed to work and what lights you up.</span></span></li>
+                <li><span class="n">02</span><span class="stack"><strong style="font-weight:600">Your Strategy</strong><span class="small muted">The simple way to meet life that reduces resistance.</span></span></li>
+                <li><span class="n">03</span><span class="stack"><strong style="font-weight:600">Your Authority</strong><span class="small muted">Your inner compass for making correct decisions.</span></span></li>
+                <li><span class="n">04</span><span class="stack"><strong style="font-weight:600">Your Profile</strong><span class="small muted">The role you play and how you learn through life.</span></span></li>
+                <li><span class="n">05</span><span class="stack"><strong style="font-weight:600">Defined centers</strong><span class="small muted">Where you are consistent and reliable.</span></span></li>
+                <li><span class="n">06</span><span class="stack"><strong style="font-weight:600">Open centers</strong><span class="small muted">Where you take in the world — and where wisdom can grow.</span></span></li>
+                <li><span class="n">07</span><span class="stack"><strong style="font-weight:600">Living your design</strong><span class="small muted">Practical experiments for the next 30 days.</span></span></li>
+              </ol>
+            </div>
+          </div>
+
+          <form class="card checkout" id="order-form" novalidate aria-label="Order this report">
+            <div class="sum" style="align-items:baseline"><h2 style="font-size:20px">Order</h2><strong style="font:600 28px var(--f-display)">[PRICE]</strong></div>
+            <fieldset style="border:none;margin:0;padding:0" class="stack">
+              <legend style="font-size:14px;font-weight:600;padding-bottom:10px">This report is for</legend>
+              <div class="stack" style="gap:10px">
+                <label class="radio"><input type="radio" name="for" value="me" id="for-me" checked> Me — use my saved chart</label>
+                <label class="radio"><input type="radio" name="for" value="gift" id="for-gift"> Someone else (gift)</label>
+              </div>
+            </fieldset>
+            <div id="for-me-box" style="border-radius:12px;background:var(--bg-2);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <div class="stack" style="gap:2px"><strong style="font-size:14px;font-weight:600">Alex Morgan</strong><span class="xs">12 Mar 1991 · 14:35 · Sofia, BG</span></div>
+              <a href="#signup" class="small" style="font-weight:600;text-decoration:none;padding:10px 0">Change</a>
+            </div>
+            <div id="for-gift-box" class="field" hidden>
+              <label for="gift-email">Recipient's email</label>
+              <input class="input" id="gift-email" type="email" placeholder="friend@email.com">
+              <span class="xs">They enter their own birth data when they open the gift.</span>
+              <span class="err" id="gift-err" hidden>Enter the recipient's email, like name@example.com.</span>
+            </div>
+            <div class="sum small" style="border-top:1px solid var(--line);padding-top:14px"><span class="muted" id="rd-line">Foundation Report</span><span>[PRICE]</span></div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="add-to-cart">Add to cart</button>
+            <button type="button" class="btn btn-secondary btn-block" id="buy-now">Buy now</button>
+            <p class="xs" style="text-align:center">PDF delivered to your inbox and account after payment.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="newsletter" aria-labelledby="nl-h">
+    <div class="wrap">
+      <div class="nl-card">
+        <div class="nl-copy">
+          <span class="eyebrow" style="color:var(--gold-soft)">The New Moon Letter</span>
+          <h2 id="nl-h">Written in the stars.<br><em>Delivered to your inbox.</em></h2>
+          <p>Once a month, on the New Moon: the transits ahead and which gates they light up, one idea from Human Design to sit with, and first look at new reports. No noise — just the sky, translated.</p>
+          <ul class="nl-perks" aria-label="What you get">
+            <li><svg width="16" height="16" aria-hidden="true"><use href="#tick"/></svg>The month's key transits, gate by gate</li>
+            <li><svg width="16" height="16" aria-hidden="true"><use href="#tick"/></svg>Subscriber-only report offers</li>
+            <li><svg width="16" height="16" aria-hidden="true"><use href="#tick"/></svg>Unsubscribe with one click</li>
+          </ul>
+        </div>
+        <form class="nl-form" id="news" novalidate>
+          <div id="nl-fields" class="stack" style="gap:12px">
+            <label for="f-name" class="nl-label">First name</label>
+            <input class="input" id="f-name" placeholder="Your first name" autocomplete="given-name">
+            <label for="f-email" class="nl-label">Email</label>
+            <input class="input" id="f-email" type="email" placeholder="you@email.com" autocomplete="email">
+            <label class="nl-consent"><input type="checkbox" id="f-consent"> Yes, send me the New Moon Letter. I can unsubscribe anytime.</label>
+            <span class="nl-err" id="nl-err" hidden></span>
+            <button class="btn btn-primary btn-lg btn-block glow-gold" type="submit">Send me the stars</button>
+          </div>
+          <div id="nl-done" class="stack" style="gap:10px;align-items:center;text-align:center;padding:12px 0" hidden>
+            <svg width="72" height="72" aria-hidden="true"><use href="#mark"/></svg>
+            <strong style="font:500 28px/1.15 var(--f-display);color:#FFFFFF">You're on the list.</strong>
+            <p style="color:var(--night-text)">Your first letter arrives with the next New Moon. (Demo — nothing was sent.)</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="top">
+        <div class="stack" style="flex:1 1 280px;max-width:360px;gap:16px">
+          <a class="logo" href="#home"><svg width="30" height="30" aria-hidden="true"><use href="#mark"/></svg><span class="logo-text"><span><b>Astral</b> <span>Design</span></span><small class="logo-motto">Beyond limits</small></span></a>
+          <p class="small muted">Human Design software, personal reports and an AI library — in one calm place.</p>
+          <div class="socials" aria-label="Astral Design on social media">
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Astral Design on Facebook" class="social"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21z"/></svg></a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Astral Design on Instagram" class="social"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="Astral Design on TikTok" class="social"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 3h-3.1v12.2a2.7 2.7 0 1 1-2.7-2.7c.3 0 .6 0 .8.1V9.4a5.9 5.9 0 1 0 5 5.8V9a7.6 7.6 0 0 0 4.4 1.4V7.3A4.4 4.4 0 0 1 16.6 3z"/></svg></a>
+          </div>
+        </div>
+        <div class="foot-cols">
+          <div><div class="eyebrow" style="padding-bottom:6px">Product</div><a href="#software">Software</a><a href="#reports">Personal reports</a><a href="#ai-library">AI Library</a><a href="#chart">Astral Hub</a><a href="#pricing">Pricing</a></div>
+          <div><div class="eyebrow" style="padding-bottom:6px">Learn</div><a href="#article" data-article="what-is-hd">What is Human Design?</a><a href="#article" data-article="five-types">The 5 Types</a><a href="#articles">All articles</a><a href="#home">Help center</a></div>
+          <div><div class="eyebrow" style="padding-bottom:6px">Company</div><a href="#about">About Astral Design</a><a href="#about">Contact</a><a href="#pricing">For practitioners</a></div>
+          <div><div class="eyebrow" style="padding-bottom:6px">Legal</div><a href="#home">Terms</a><a href="#home">Privacy</a><a href="#home">Cookies</a><a href="#home">Refunds</a></div>
+        </div>
+      </div>
+      <div class="bottom">
+        <span class="copy">© 2026 Astral Design. <em>Charted under the same sky as you.</em> <span class="copy-legal">[Company legal name, registration no.]</span></span>
+        <span style="max-width:620px">Human Design is a tool for self-reflection. It is not medical, psychological, legal or financial advice.</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ========== SIGN UP ========== -->
+<div id="auth" class="auth" data-view="signup" hidden>
+  <div class="auth-side">
+    <a class="logo" href="#home"><svg width="48" height="48" aria-hidden="true"><use href="#mark"/></svg><span><b>Astral</b> <span>Design</span></span></a>
+    <div class="bg-slot" style="width:260px;max-width:100%"></div>
+    <div class="stack" style="gap:10px;max-width:420px">
+      <div style="font:600 26px/34px var(--f-display)">Your chart is calculated the moment you finish.</div>
+      <p class="muted" style="font-size:15px;line-height:24px">Your birth data stays private. You can edit or delete it anytime from your account.</p>
+    </div>
+  </div>
+  <main class="auth-main">
+    <div class="auth-form">
+      <ol class="progress" aria-label="Progress"><li class="on" id="p1">1 · Account</li><li id="p2">2 · Birth data</li></ol>
+
+      <form id="step1" class="stack" style="gap:18px" novalidate>
+        <div class="stack" style="gap:6px">
+          <h1 style="font-size:32px;line-height:40px">Create your account</h1>
+          <p class="muted" style="font-size:15px">Already have one? <a href="#chart" style="font-weight:600">Log in</a></p>
+        </div>
+        <button type="button" class="btn btn-secondary btn-block" data-social>Continue with Google</button>
+        <button type="button" class="btn btn-secondary btn-block" data-social>Continue with Apple</button>
+        <div class="or">or with email</div>
+        <div class="field"><label for="su-email">Email</label><input class="input" id="su-email" type="email" placeholder="you@email.com" autocomplete="email"><span class="err" id="su-email-err" hidden>Enter an email like name@example.com.</span></div>
+        <div class="field"><label for="su-pass">Password</label><input class="input" id="su-pass" type="password" placeholder="At least 8 characters" autocomplete="new-password"><span class="err" id="su-pass-err" hidden>Use at least 8 characters.</span></div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Continue</button>
+        <p class="xs">By continuing you agree to our <a href="#home">Terms</a> and <a href="#home">Privacy policy</a>.</p>
+      </form>
+
+      <form id="step2" class="stack" style="gap:18px" novalidate hidden>
+        <div class="stack" style="gap:6px">
+          <h1 style="font-size:32px;line-height:40px">Your birth data</h1>
+          <p class="muted" style="font-size:15px;line-height:22px">The more exact your birth time, the more accurate your chart.</p>
+        </div>
+        <div class="field"><label for="bd-name">Name on chart</label><input class="input" id="bd-name" value="Alex Morgan"></div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+          <div class="field"><label for="bd-date">Date of birth</label><input class="input" id="bd-date" type="date" value="1991-03-12"></div>
+          <div class="field"><label for="bd-time">Time of birth</label><input class="input" id="bd-time" type="time" value="14:35"></div>
+        </div>
+        <label class="check" style="min-height:44px;align-items:center;color:var(--text-2);font-size:14px"><input type="checkbox" id="bd-unknown" style="width:18px;height:18px;accent-color:var(--primary)"> I don't know my exact birth time</label>
+        <div class="field">
+          <label for="bd-place">Place of birth</label>
+          <input class="input" id="bd-place" value="Sofia" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="places">
+          <ul class="suggest" id="places" role="listbox" aria-label="Place suggestions"></ul>
+          <span class="xs" id="tz-note">Time zone: UTC+2 (EET), set automatically from the place and date.</span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Calculate my chart</button>
+        <button type="button" class="btn btn-block" style="background:transparent;color:var(--text-2)" id="back1">← Back</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- ========== APP ========== -->
+<div id="app" class="app" hidden>
+  <nav class="sidebar" aria-label="App">
+    <a class="logo" href="#home" style="padding:0 8px"><svg width="28" height="28" aria-hidden="true"><use href="#mark"/></svg><span><b style="font-size:21px">Astral</b> <span style="font-size:21px">Hub</span></span></a>
+    <ul class="side-nav">
+      <li><a href="#chart" data-app="chart">My chart</a></li>
+      <li><a href="#chart" data-app="transits" data-transit>Transits</a></li>
+      <li><a href="#library" data-app="library">AI Library</a></li>
+      <li><a href="#reports">Order report</a></li>
+      <li><a href="#pricing">Plans &amp; billing</a></li>
+    </ul>
+    <div style="margin-top:auto" class="stack">
+      <div class="quota"><strong style="font-size:13px;font-weight:600">Plus plan</strong><span class="xs" id="quota-text">AI questions: 18 of 30 left this month</span><div class="meter"><i id="quota-bar" style="width:60%"></i></div></div>
+      <a href="#home" class="logo" style="padding:6px 8px;gap:10px"><span class="avatar">AM</span><span class="stack"><span style="font-size:14px;font-weight:600">Alex Morgan</span><span class="xs">Back to website</span></span></a>
+    </div>
+  </nav>
+
+  <main class="workspace" data-view="chart">
+    <div class="ws-head">
+      <div class="stack" style="gap:4px"><span class="eyebrow">Astral Hub</span><span class="xs" id="greet">Good afternoon, Alex</span><h1 id="hub-title">My chart</h1></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <label for="d-chart" class="sr">Chart</label>
+        <select id="d-chart" class="input" style="width:auto;height:44px;font-weight:500"><option>Alex Morgan (me)</option><option>Sam Lee</option></select>
+        <button type="button" class="btn btn-secondary btn-sm" data-toast="Your chart PDF is being prepared — demo only.">Export PDF</button>
+        <a class="btn btn-primary btn-sm" href="#signup">+ New chart</a>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact" style="background:var(--surface)"><div class="k">Type</div><div class="v">Generator</div></div>
+      <div class="fact" style="background:var(--surface)"><div class="k">Strategy</div><div class="v">To respond</div></div>
+      <div class="fact" style="background:var(--surface)"><div class="k">Authority</div><div class="v">Sacral</div></div>
+      <div class="fact" style="background:var(--surface)"><div class="k">Profile</div><div class="v">3/5</div></div>
+      <div class="fact" style="background:var(--surface)"><div class="k">Definition</div><div class="v">Single</div></div>
+      <div class="fact" style="background:var(--surface)"><div class="k">Signature</div><div class="v">Satisfaction</div></div>
+    </div>
+    <div class="cols">
+      <section class="panel" aria-labelledby="bg-h">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <h2 id="bg-h">Bodygraph</h2>
+          <div class="mini-seg" role="group" aria-label="Chart layer">
+            <button type="button" data-layer="natal" aria-pressed="true">Natal</button>
+            <button type="button" data-layer="transit" aria-pressed="false">+ Transit</button>
+          </div>
+        </div>
+        <div class="bg-slot" id="main-bg" style="width:340px;max-width:100%;padding-block:8px"></div>
+        <div class="legend"><span><i class="sw" style="background:var(--primary)"></i>Defined</span><span><i class="sw" style="border:2px solid var(--open-stroke)"></i>Open</span><span id="legend-transit" hidden><i class="sw" style="background:var(--accent)"></i>Transit</span></div>
+        <p class="xs" style="text-align:center">Tap a center to read about it.</p>
+      </section>
+      <div class="stack" style="gap:20px;min-width:0">
+        <section class="panel" aria-labelledby="c-h">
+          <h2 id="c-h">Centers</h2>
+          <div class="center-chips" role="group" aria-label="Choose a center" id="center-chips"></div>
+          <div class="center-info" aria-live="polite">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong style="font:600 18px var(--f-display)" id="ci-name">Sacral</strong><span class="pill pill-indigo" style="font-size:12px;padding:3px 10px" id="ci-state">Defined</span></div>
+            <p class="muted" style="font-size:15px;line-height:24px" id="ci-text"></p>
+            <a href="#library" class="small" style="font-weight:600;text-decoration:none;padding-top:6px" id="ci-ask">Ask the AI about this center →</a>
+          </div>
+        </section>
+        <section class="panel" aria-labelledby="t-h">
+          <div style="display:flex;justify-content:space-between;align-items:center"><h2 id="t-h">Today's transit</h2><span class="xs" id="today"></span></div>
+          <p class="muted" style="font-size:15px;line-height:24px"><span id="dash-transit">The Sun is in Gate …</span> — [one-line transit summary generated for this chart].</p>
+          <button type="button" class="arrow-link" style="border:none;background:none;color:var(--primary);cursor:pointer;text-align:left;padding-left:0" data-show-transit>Show transit on my chart →</button>
+        </section>
+        <a href="#report" class="promo" data-report="foundation">
+          <svg width="40" height="40" aria-hidden="true" style="flex-shrink:0;color:#FFFFFF"><use href="#star"/></svg>
+          <span class="stack" style="flex:1;gap:2px"><span style="font-weight:600">Read your full Foundation Report</span><span style="font-size:13px;color:var(--night-text)">[XX]% off with Plus · PDF</span></span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <main class="workspace" data-view="library" hidden>
+    <div class="ws-head">
+      <div class="stack" style="gap:4px"><h1>AI Library</h1><span class="xs">Answers use your chart and the Human Design library, with sources shown.</span></div>
+      <button type="button" class="btn btn-secondary btn-sm" id="new-chat">+ New conversation</button>
+    </div>
+    <div class="cols" style="align-items:stretch">
+      <section class="panel chat" aria-label="Conversation">
+        <div class="chat-head"><strong style="font-size:15px;font-weight:600" id="chat-title">Deciding on the job offer</strong><span class="pill pill-indigo" style="font-size:12px;padding:4px 10px">Using: Alex Morgan's chart</span></div>
+        <div class="thread" id="thread" aria-live="polite"></div>
+        <div class="chat-foot">
+          <div style="display:flex;flex-wrap:wrap;gap:8px" id="suggestions"></div>
+          <form class="ask" id="ask-form">
+            <label for="l-ask" class="sr">Ask a question</label>
+            <input id="l-ask" placeholder="Ask about your chart, a center, a gate…" autocomplete="off">
+            <button class="icon-btn" type="submit" aria-label="Send"><svg width="18" height="18" aria-hidden="true"><use href="#send"/></svg></button>
+          </form>
+          <p class="demo-note">Demo: answers here are pre-written examples. AI answers can be wrong; Human Design is for self-reflection, not professional advice.</p>
+        </div>
+      </section>
+      <aside class="lib-side" aria-label="Library">
+        <section class="panel" aria-labelledby="src-h">
+          <h2 id="src-h" style="font-size:16px">Sources in the last answer</h2>
+          <div class="stack" style="gap:10px" id="sources"></div>
+        </section>
+        <section class="panel" aria-labelledby="my-h">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 id="my-h" style="font-size:16px">My library</h2><span class="pill pill-amber" style="font-size:11px;padding:3px 9px">Practitioner</span></div>
+          <label class="drop" id="drop" for="upload">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+            <strong style="font-size:14px;font-weight:600">Add books, notes or PDFs</strong>
+            <span class="xs">Drop files here or click · PDF, DOCX, TXT, EPUB</span>
+            <input type="file" id="upload" multiple class="sr" accept=".pdf,.docx,.txt,.epub">
+          </label>
+          <ul class="docs" id="docs"></ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<div class="modal-back" id="upgrade" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="up-title" aria-describedby="up-desc">
+    <button type="button" class="modal-x" id="up-close" aria-label="Close">×</button>
+    <svg width="72" height="72" aria-hidden="true"><use href="#mark"/></svg>
+    <span class="pill pill-amber" id="up-tier">Plus feature</span>
+    <h2 id="up-title" style="font-size:32px;line-height:1.15">Upgrade to unlock this chart</h2>
+    <p class="muted" id="up-desc" style="max-width:40ch">This chart is part of Astral Plus. Upgrade to see it calculated for your own birth data.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding-top:4px">
+      <button type="button" class="btn btn-primary btn-lg" id="up-buy">Upgrade to Plus</button>
+      <button type="button" class="btn btn-secondary btn-lg" id="up-later">Not now</button>
+    </div>
+    <a href="#pricing" class="xs" id="up-compare">Compare plans</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+  // ---------- data ----------
+  const REPORTS = [
+    { id:'foundation', t:'Foundation Report', cat:'Foundations', d:'Type, Strategy, Authority and your nine centers — the essential guide to your design.', meta:'PDF · ~[XX] pages', bg:'var(--primary-50)', fg:'var(--primary)' },
+    { id:'profile', t:'Profile Deep Dive', cat:'Foundations', d:'Your two Profile lines and how they shape the way you learn, relate and grow.', meta:'PDF · ~[XX] pages', bg:'var(--primary-50)', fg:'var(--primary-700)' },
+    { id:'cross', t:'Incarnation Cross', cat:'Foundations', d:'The four gates of your Cross and the life theme they describe.', meta:'PDF · ~[XX] pages', bg:'var(--bg-2)', fg:'var(--ink)' },
+    { id:'relationship', t:'Relationship Report', cat:'Relationships', d:'Two designs side by side — attraction, compromise and shared growth.', meta:'Needs 2 birth charts', bg:'var(--accent-50)', fg:'var(--accent)' },
+    { id:'career', t:'Career & Work Flow', cat:'Career', d:'How your energy works best — decisions, collaboration and sustainable rhythm.', meta:'PDF · ~[XX] pages', bg:'var(--bg-2)', fg:'var(--primary)' },
+    { id:'year', t:'Year Ahead', cat:'Timing', d:'Your Solar Return themes and key transits for the next 12 months.', meta:'PDF · ~[XX] pages', bg:'var(--accent-50)', fg:'var(--accent-ink)' },
+    { id:'family', t:'Family Dynamics', cat:'Family', d:'How up to four designs interact at home — strengths, tensions and support.', meta:'Up to 4 charts', bg:'var(--primary-50)', fg:'var(--primary)' },
+    { id:'child', t:'Your Child’s Design', cat:'Family', d:'A gentle guide for parents to their child’s Type, needs and natural gifts.', meta:'PDF · ~[XX] pages', bg:'var(--bg-2)', fg:'var(--accent)' }
+  ];
+  const CENTERS = [
+    ['Head','Open','You take in many questions and ideas from others. Not every question needs to be answered by you.'],
+    ['Ajna','Open','You can see many perspectives. Certainty is not required before you act on your Authority.'],
+    ['Throat','Open','No fixed way of expressing yourself — your voice adapts to whoever is around. Speak when your gut says yes rather than to fill a silence.'],
+    ['G','Defined','A steady sense of identity and direction. You know what feels like you.'],
+    ['Heart','Open','Nothing to prove. Your worth is not measured by promises or willpower.'],
+    ['Sacral','Defined','Your life-force engine. Sustainable energy for work you respond to — your gut sounds are your guide.'],
+    ['Spleen','Defined','In-the-moment intuition about what is healthy and safe for you. It speaks once, quietly.'],
+    ['Solar Plexus','Open','You feel other people’s emotions strongly. Notice which feelings are yours and which you are amplifying.'],
+    ['Root','Defined','A consistent relationship with pressure — you can work with deadlines in your own rhythm.']
+  ];
+  const ANSWERS = [
+    { k:/profile|3\/5|work/i, title:'My 3/5 Profile at work',
+      p:['Your 3rd line learns by trying things and discovering what doesn’t work. At work that makes you a natural tester and troubleshooter — mistakes are data, not failures.',
+         'The 5th line means others project expectations onto you, often as the person who will fix things. Be clear about what you can deliver so the projection stays positive.'],
+      s:[['Profile lines 3 and 5','Library article · Profile series'],['Your chart · Profile 3/5','From your birth data']] },
+    { k:/solar|emotion|plexus/i, title:'Living with an open Solar Plexus',
+      p:['With an open Solar Plexus you take in and amplify the emotions around you. Strong feelings in a room may not be yours.',
+         'A simple practice: when emotions rise, ask “Is this mine?” and give yourself a little space before acting on them. Your Sacral, not your mood, is your decision-maker.'],
+      s:[['The open Solar Plexus','Library article · Centers series'],['Your chart · Centers','From your birth data']] },
+    { k:/sam|compare|connection|partner/i, title:'You and Sam',
+      p:['In the full app this compares both bodygraphs and shows where your definitions complete each other (electromagnetic channels) and where you share the same energy.',
+         'Add Sam’s birth data under Saved charts to see your connection chart. [Answer generated from both charts on the live product.]'],
+      s:[['Connection charts','Library article · Relationships'],['Saved charts','Sam Lee']] },
+    { k:/./, title:'Your question',
+      p:['On the live product the AI answers this from your chart and the library, in plain language.',
+         'In this demo, try one of the suggested questions to see an example answer with its sources.'],
+      s:[['Human Design library','Curated articles'],['Your chart','From your birth data']] }
+  ];
+  const FIRST = { q:'I got a job offer with a bigger salary but I’m unsure. How should I decide with my design?',
+    p:['With <strong>Sacral authority</strong>, your clearest answer comes as a gut response in the moment — not from weighing pros and cons in your head.',
+       'Ask a trusted friend to read you simple yes/no questions about the offer: “Do you want to work with this team?”, “Do you want this commute?”. Notice the sound or feeling that comes before you think.',
+       'Your open Head and Ajna may keep producing doubts. That’s normal for your design — they don’t have to be resolved before you decide.'],
+    s:[['Sacral authority','Library article · Authority series'],['The open Head','Library article · Centers series'],['Your chart · Centers','From your birth data']] };
+  const SUGGEST = ['What does my 3/5 Profile mean at work?','How do I deal with my open Solar Plexus?','Compare my chart with Sam’s'];
+
+  // ---------- bodygraphs ----------
+  // ---------- accurate bodygraph (9 centers, 64 gates, 36 channels) ----------
+  const BG = {
+    centers: {
+      Head:{shape:'poly',pts:[[200,22],[242,96],[158,96]],c:[200,72]},
+      Ajna:{shape:'poly',pts:[[158,124],[242,124],[200,200]],c:[200,148]},
+      Throat:{shape:'rect',x:164,y:228,w:72,h:72,c:[200,264]},
+      G:{shape:'poly',pts:[[200,320],[250,370],[200,420],[150,370]],c:[200,370]},
+      Heart:{shape:'poly',pts:[[258,430],[334,394],[320,460]],c:[305,428]},
+      Sacral:{shape:'rect',x:160,y:468,w:80,h:78,c:[200,507]},
+      Spleen:{shape:'poly',pts:[[28,418],[112,476],[28,534]],c:[56,476]},
+      'Solar Plexus':{shape:'poly',pts:[[372,418],[288,476],[372,534]],c:[344,476]},
+      Root:{shape:'rect',x:160,y:570,w:80,h:72,c:[200,606]}
+    },
+    gates: {64:[176,96],61:[200,96],63:[224,96],47:[176,124],24:[200,124],4:[224,124],17:[178,158],11:[222,158],43:[200,190],
+      62:[180,228],23:[200,228],56:[220,228],16:[164,244],20:[164,280],35:[236,242],12:[236,262],45:[236,284],31:[180,300],8:[200,300],33:[220,300],
+      1:[200,324],7:[178,346],13:[222,346],10:[154,370],25:[246,370],15:[178,394],46:[222,394],2:[200,416],
+      21:[306,404],51:[262,428],26:[290,446],40:[326,430],
+      5:[178,468],14:[200,468],29:[222,468],34:[160,484],27:[160,528],59:[240,512],42:[178,546],3:[200,546],9:[222,546],
+      48:[42,428],57:[66,444],44:[92,462],50:[98,486],32:[78,500],28:[56,515],18:[38,527],
+      36:[358,428],22:[334,444],37:[308,462],6:[302,486],49:[322,500],55:[344,515],30:[362,527],
+      53:[178,570],60:[200,570],52:[222,570],54:[160,586],38:[160,606],58:[160,626],19:[240,586],39:[240,606],41:[240,626]},
+    channels: [[64,47],[61,24],[63,4],[17,62],[43,23],[11,56],[16,48],[20,57],[20,34],[10,20],[7,31],[1,8],[13,33],[45,21],[35,36],[12,22],
+      [15,5],[2,14],[46,29],[10,34],[10,57],[25,51],[34,57],[26,44],[40,37],[27,50],[59,6],[42,53],[3,60],[9,52],[32,54],[28,38],[18,58],[49,19],[55,39],[30,41]]
+  };
+  // Sample chart (Alex Morgan): Generator, Sacral authority, single definition
+  // Sample chart (Alex Morgan). p = Personality (conscious, violet), d = Design (unconscious, gold)
+  const NATAL = { channels:[[2,14],[27,50],[3,60],[28,38]], p:[2,27,3,28,1,57,41], d:[14,50,60,38,3,10,34,46,13] };
+  const GATE_CENTER = {};
+  [['Head',[64,61,63]],['Ajna',[47,24,4,17,43,11]],['Throat',[62,23,56,35,12,45,33,8,31,20,16]],['G',[1,13,25,46,2,15,10,7]],
+   ['Heart',[21,40,26,51]],['Sacral',[5,14,29,59,9,3,42,27,34]],['Spleen',[48,57,44,50,32,28,18]],
+   ['Solar Plexus',[36,22,37,6,49,55,30]],['Root',[53,60,52,19,39,41,58,38,54]]].forEach(([c,gs])=>gs.forEach(g=>GATE_CENTER[g]=c));
+  function buildBodygraph(){
+    const P = new Set(NATAL.p), D = new Set(NATAL.d);
+    const kind = g => P.has(g) && D.has(g) ? 'b' : P.has(g) ? 'p' : D.has(g) ? 'd' : '';
+    const defCenters = new Set(NATAL.channels.flat().map(g=>GATE_CENTER[g]));
+    const pt = g => BG.gates[g];
+    const centroid = c => c.shape==='rect' ? [c.x+c.w/2, c.y+c.h/2] : [c.pts.reduce((s,p)=>s+p[0],0)/c.pts.length, c.pts.reduce((s,p)=>s+p[1],0)/c.pts.length];
+    const corners = c => c.shape==='rect' ? [[c.x,c.y],[c.x+c.w,c.y],[c.x+c.w,c.y+c.h],[c.x,c.y+c.h]] : c.pts;
+    const f = n => n.toFixed(1);
+    let frame='', chans='', tr='', hangs='', shapes='', gates='';
+    // oval frame with stars
+    frame = `<g class="bg-frame" aria-hidden="true"><ellipse class="frame-dots" cx="200" cy="332" rx="226" ry="352"/><ellipse class="frame-gold" cx="200" cy="332" rx="214" ry="340"/><ellipse class="frame-fill" cx="200" cy="332" rx="206" ry="332"/>`
+      + [[200,-21,7],[200,685,7],[-6,96,4],[406,96,4],[-6,570,4],[406,570,4]].map(([x,y,r])=>`<path class="frame-star" d="M${x} ${y-r*1.6} L${x+r*.32} ${y-r*.32} L${x+r*1.6} ${y} L${x+r*.32} ${y+r*.32} L${x} ${y+r*1.6} L${x-r*.32} ${y+r*.32} L${x-r*1.6} ${y} L${x-r*.32} ${y-r*.32} Z"/>`).join('') + '</g>';
+    // curved channels, split into two halves (one per gate)
+    BG.channels.forEach(([a,b])=>{
+      const A=pt(a), B=pt(b), dx=B[0]-A[0], dy=B[1]-A[1], L=Math.hypot(dx,dy);
+      const mx=(A[0]+B[0])/2, my=(A[1]+B[1])/2;
+      let cx=mx, cy=my;
+      if (Math.abs(dx) > 14) { // bow outward, away from the body's vertical axis
+        let nx=-dy/L, ny=dx/L; const side = (mx-200)||((A[0]+B[0])/2-200)||1;
+        if (nx*side < 0) { nx=-nx; ny=-ny; }
+        const k = Math.min(34, L*0.13); cx = mx + nx*k; cy = my + ny*k;
+      }
+      // de Casteljau split at t = 0.5
+      const q0=[(A[0]+cx)/2,(A[1]+cy)/2], q1=[(cx+B[0])/2,(cy+B[1])/2], M=[(q0[0]+q1[0])/2,(q0[1]+q1[1])/2];
+      const halfA=`M${f(A[0])} ${f(A[1])} Q${f(q0[0])} ${f(q0[1])} ${f(M[0])} ${f(M[1])}`;
+      const halfB=`M${f(B[0])} ${f(B[1])} Q${f(q1[0])} ${f(q1[1])} ${f(M[0])} ${f(M[1])}`;
+      [[a,halfA,b],[b,halfB,a]].forEach(([g,d,other])=>{
+        const k=kind(g);
+        chans += `<g class="ch${k?' on '+k:''}" data-gate="${g}"><path class="base" d="${d}"/><path class="core" d="${d}"/><path class="stripe" d="${d}"/></g>`;
+        tr += `<path class="transit" data-gate="${g}" d="${d}" hidden/>`;
+        if (k && !kind(other)) hangs += `<circle class="hang on ${k}" data-gate="${g}" cx="${f(M[0])}" cy="${f(M[1])}" r="3.6"/>`;
+      });
+    });
+    // centers: violet crystal when defined, white when open; facets + sparkle
+    Object.entries(BG.centers).forEach(([name,c])=>{
+      const def = defCenters.has(name), cls = def ? 'def' : 'open', C = centroid(c);
+      shapes += c.shape==='rect'
+        ? `<rect data-center="${name}" class="${cls}" x="${c.x}" y="${c.y}" width="${c.w}" height="${c.h}" rx="6"/>`
+        : `<polygon data-center="${name}" class="${cls}" points="${c.pts.map(p=>p.join(',')).join(' ')}"/>`;
+      shapes += corners(c).map(v=>`<line class="facet${def?'':' on-open'}" x1="${f(C[0])}" y1="${f(C[1])}" x2="${v[0]}" y2="${v[1]}"/>`).join('');
+      if (def) { const r=5; shapes += `<path class="sparkle" d="M${f(C[0])} ${f(C[1]-r*1.6)} L${f(C[0]+r*.3)} ${f(C[1]-r*.3)} L${f(C[0]+r*1.6)} ${f(C[1])} L${f(C[0]+r*.3)} ${f(C[1]+r*.3)} L${f(C[0])} ${f(C[1]+r*1.6)} L${f(C[0]-r*.3)} ${f(C[1]+r*.3)} L${f(C[0]-r*1.6)} ${f(C[1])} L${f(C[0]-r*.3)} ${f(C[1]-r*.3)} Z"/>`; }
+    });
+    // numbered gate circles, nudged just inside their center
+    Object.entries(BG.gates).forEach(([g,P0])=>{
+      g=+g; const cen = BG.centers[GATE_CENTER[g]].c, dx=cen[0]-P0[0], dy=cen[1]-P0[1], len=Math.hypot(dx,dy)||1, k=Math.min(7,len*0.4);
+      const x=P0[0]+dx/len*k, y=P0[1]+dy/len*k, kd=kind(g);
+      gates += `<g class="gc${kd?' '+kd:''}" data-gate="${g}"><circle cx="${f(x)}" cy="${f(y)}" r="7.6"/><text x="${f(x)}" y="${f(y+.3)}">${g}</text></g>`;
+    });
+    return `<svg class="bg-svg" viewBox="-34 -36 468 732" role="img" aria-label="Human Design bodygraph, sample chart: G, Sacral, Spleen and Root defined; channels 2–14, 27–50, 3–60 and 28–38. Violet: Personality, gold: Design.">
+      ${frame}<g>${chans}</g><g>${tr}</g><g>${hangs}</g><g>${shapes}</g><g>${gates}</g><circle class="dot spark" cx="200" cy="370" r="0"/></svg>`;
+  }
+  $('#bodygraph').innerHTML = buildBodygraph();
+  function showTransitGates(scope, gates){ $$('.transit', scope).forEach(l => l.toggleAttribute('hidden', !gates.has(+l.dataset.gate))); $$('.gc', scope).forEach(g => g.classList.toggle('tr', gates.has(+g.dataset.gate))); }
+
+  const tpl = $('#bodygraph');
+  $$('.bg-slot').forEach(slot => slot.appendChild(tpl.content.cloneNode(true)));
+
+  // ---------- Merkaba → bodygraph hero ----------
+  const stage = $('#stage'), mkG = $('#mk-lines');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const R = Math.sqrt(8)/3;
+  const T1 = [[0,1,0]].concat([90,210,330].map(d=>[R*Math.cos(d*Math.PI/180),-1/3,R*Math.sin(d*Math.PI/180)]));
+  const T2 = T1.map(v=>v.map(n=>-n));
+  const EDGES = [[0,1],[0,2],[0,3],[1,2],[2,3],[3,1]];
+  const NS = 'http://www.w3.org/2000/svg';
+  const mkLines = [];
+  [[T1,'mk-a'],[T2,'mk-b']].forEach(([T,cls])=>EDGES.forEach(([i,j])=>{ const l=document.createElementNS(NS,'line'); l.setAttribute('class',cls); mkG.appendChild(l); mkLines.push([l,T[i],T[j]]); }));
+  const TILT = 0.30, SCALE = 1.28;
+  function proj(v,a){ let [x,y,z]=v; [x,z]=[x*Math.cos(a)+z*Math.sin(a), -x*Math.sin(a)+z*Math.cos(a)]; [y,z]=[y*Math.cos(TILT)-z*Math.sin(TILT), y*Math.sin(TILT)+z*Math.cos(TILT)]; const k=3.4/(3.4-z); return [x*k*SCALE, -y*k*SCALE]; }
+  function drawMk(a){ mkLines.forEach(([l,p,q])=>{ const A=proj(p,a), B=proj(q,a); l.setAttribute('x1',A[0].toFixed(4)); l.setAttribute('y1',A[1].toFixed(4)); l.setAttribute('x2',B[0].toFixed(4)); l.setAttribute('y2',B[1].toFixed(4)); }); }
+  // centers rise from the top of the chart downward
+  const order = ['Head','Ajna','Throat','G','Heart','Spleen','Solar Plexus','Sacral','Root'];
+  $$('.hero-bg [data-center]').forEach(el=>{ el.style.transitionDelay = (0.25 + order.indexOf(el.dataset.center)*0.13)+'s'; });
+  $$('.hero-bg .ch').forEach((el,i)=>{ el.style.transitionDelay = (0.9 + i*0.05)+'s'; });
+  const dotEl = $('.hero-bg .dot'); if (dotEl) dotEl.style.transitionDelay = '1.9s';
+  let angle = 0.45, last = 0, speed = 1.5, emergeTimer;
+  function loop(t){ const dt = last ? Math.min(0.05,(t-last)/1000) : 0; last = t; const target = stage.classList.contains('emerged') ? 0.22 : 1.5; speed += (target-speed)*Math.min(1,dt*1.6); angle += speed*dt; if (!$('#site').hidden) drawMk(angle); requestAnimationFrame(loop); }
+  function playHero(){ clearTimeout(emergeTimer); stage.classList.remove('emerged'); speed = 1.5; emergeTimer = setTimeout(()=>stage.classList.add('emerged'), 2600); }
+  drawMk(angle);
+  if (reduce) { stage.classList.add('emerged'); }
+  else { requestAnimationFrame(loop); playHero(); stage.addEventListener('click', playHero); }
+
+  // ---------- toast ----------
+  let tt;
+  function toast(msg){ const t=$('#toast'); t.textContent=msg; t.hidden=false; clearTimeout(tt); tt=setTimeout(()=>t.hidden=true,3200); }
+  $$('[data-toast]').forEach(b=>b.addEventListener('click',()=>toast(b.dataset.toast)));
+  $('#news').addEventListener('submit',e=>{e.preventDefault();
+    const v=$('#f-email').value.trim(), err=$('#nl-err');
+    if(!/\S+@\S+\.\S+/.test(v)){ err.textContent='Enter an email like name@example.com.'; err.hidden=false; $('#f-email').focus(); return; }
+    if(!$('#f-consent').checked){ err.textContent='Tick the box so we know you want the letter.'; err.hidden=false; $('#f-consent').focus(); return; }
+    err.hidden=true; $('#nl-fields').hidden=true; $('#nl-done').hidden=false;
+    const n=$('#f-name').value.trim(); if(n) $('#nl-done strong').textContent=`You're on the list, ${n}.`;
+  });
+
+  // ---------- router ----------
+  const PUBLIC = ['home','software','ai-library','pricing','reports','report','articles','article','about','cart'];
+  let currentArticle = 'what-is-hd';
+  const APPV = ['chart','library'];
+  let currentReport = 'foundation', routedOnce = false;
+  function route(){
+    let v = (location.hash || '#home').slice(1);
+    if (![...PUBLIC,...APPV,'signup'].includes(v)) v = 'home';
+    $('#site').hidden = !PUBLIC.includes(v);
+    $('#auth').hidden = v !== 'signup';
+    $('#app').hidden = !APPV.includes(v);
+    if (PUBLIC.includes(v)) {
+      $$('#main > [data-view]').forEach(s => s.hidden = s.dataset.view !== v);
+      $$('.nav a').forEach(a => a.toggleAttribute('aria-current', a.dataset.nav === v || (v==='report' && a.dataset.nav==='reports') || (v==='article' && a.dataset.nav==='articles')));
+      $$('.nav a').forEach(a => { if (a.hasAttribute('aria-current')) a.setAttribute('aria-current','page'); });
+    }
+    if (APPV.includes(v)) {
+      $$('#app [data-view]').forEach(s => s.hidden = s.dataset.view !== v);
+      $$('.side-nav a').forEach(a => { a.removeAttribute('aria-current'); if (a.dataset.app === v) a.setAttribute('aria-current','page'); });
+    }
+    if (v === 'report') fillReport();
+    if (v === 'article') fillArticle();
+    if (v === 'cart') renderCart();
+    $('#cart-link').toggleAttribute('aria-current', v === 'cart');
+    if (v === 'home' && typeof playHero === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && routedOnce) playHero();
+    routedOnce = true;
+    document.title = 'Astral Design — Beyond limits';
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-report]'); if (a) currentReport = a.dataset.report;
+    const ar = e.target.closest('[data-article]');
+    if (ar) { const same = currentArticle === ar.dataset.article; currentArticle = ar.dataset.article; if (same || location.hash === '#article') { setTimeout(()=>{ fillArticle(); window.scrollTo(0,0); }, 0); } }
+  }, true);
+
+  // ---------- articles ----------
+  const ARTICLES = [
+    { id:'what-is-hd', cat:'Basics', t:'What is Human Design? A clear introduction', min:7, bg:'var(--primary-50)',
+      lead:'A map of how your energy works, calculated from the moment and place you were born. Here is what it is, where it comes from and how to start using it.',
+      body:[['p','Human Design brings together several older systems — Western astrology, the I Ching, the Kabbalah and the chakra system — into one chart called the bodygraph. Your chart is calculated from your birth date, exact time and place.'],
+            ['h','Two moments, one chart'],['p','The chart uses two calculations: the moment of birth and a moment roughly three months before it. The first is shown in black and describes what you are conscious of; the second is shown in red and describes qualities others may see in you before you do.'],
+            ['h','The nine centers'],['p','The bodygraph has nine centers. Some are coloured in (defined) and some are white (open). Defined centers are where your energy is consistent. Open centers are where you take in the world around you — and where you can grow wise about it.'],
+            ['q','Human Design is not a set of rules. It is an experiment you run in your own life.'],
+            ['h','Where to start'],['p','Start with three things: your Type, your Strategy and your Authority. Together they describe how your energy works best and how you are built to make decisions. Everything else in the chart adds detail to that foundation.']] },
+    { id:'five-types', cat:'Types', t:'The five Types, explained simply', min:8, bg:'var(--accent-50)',
+      lead:'Manifestor, Generator, Manifesting Generator, Projector and Reflector — what each Type is here to do, and the one simple Strategy that makes life easier for each.',
+      body:[['p','Your Type is the broadest description of how your energy moves. It is set by which centers are defined and how they connect.'],
+            ['h','Generators and Manifesting Generators'],['p','Defined Sacral, steady life-force energy. Their Strategy is to respond: let life bring something to them, then notice the gut yes or no. Manifesting Generators move faster and often skip steps — and that is part of their design.'],
+            ['h','Manifestors'],['p','Built to initiate. Their Strategy is to inform the people affected before they act, which removes much of the resistance they meet.'],
+            ['h','Projectors'],['p','Here to guide and see others deeply. Their Strategy is to wait for the invitation, so their insight is received rather than resisted.'],
+            ['h','Reflectors'],['p','All nine centers open. Reflectors mirror their environment and do best when they give big decisions a full lunar cycle.']] },
+    { id:'sacral-authority', cat:'Authority', t:'Sacral Authority: how to trust your gut', min:6, bg:'var(--bg-2)',
+      lead:'If your Sacral center is defined and your Solar Plexus is open, your clearest decisions come from a sound in your body, not a thought in your head.',
+      body:[['p','Sacral Authority speaks in the present moment. It often comes as a sound — an “uh-huh” for yes, an “unh-unh” for no — or as a feeling of energy moving toward or away from something.'],
+            ['h','Ask yes/no questions'],['p','The Sacral cannot answer open questions like “What should I do?”. It answers simple yes/no questions. Ask a friend to read them to you, and notice your response before your mind joins in.'],
+            ['q','The mind is a wonderful advisor. It is not built to be your decision-maker.'],
+            ['h','A small experiment'],['p','For one week, answer small daily choices — what to eat, whether to go out — from the gut response alone. Notice how it feels when you follow it, and when you override it.']] },
+    { id:'open-centers', cat:'Centers', t:'Open centers are not weaknesses', min:7, bg:'var(--primary-50)',
+      lead:'White centers in your chart are where you take in and amplify other people’s energy. Understood well, they become your greatest source of wisdom.',
+      body:[['p','An open center has no consistent way of working on its own. Instead it absorbs the energy of the people around you and often amplifies it.'],
+            ['h','The conditioning question'],['p','Each open center has a typical pattern of conditioning. With an open Heart you may feel you have something to prove; with an open Head, pressure to answer questions that are not yours.'],
+            ['h','From conditioning to wisdom'],['p','Over time you can recognise these energies as passing through you rather than belonging to you. That is when open centers turn into deep understanding of other people.']] },
+    { id:'profiles', cat:'Profiles', t:'Your Profile: the role you came to play', min:6, bg:'var(--accent-50)',
+      lead:'Two numbers, like 3/5 or 6/2, describe your personality costume — how you learn, how you relate and how others see you.',
+      body:[['p','Your Profile comes from the line numbers of your personality and design Sun. The first number is conscious, the second is unconscious.'],
+            ['h','Six lines'],['p','Line 1 investigates. Line 2 has natural gifts that others call out. Line 3 learns by trial and error. Line 4 thrives through its network. Line 5 is projected upon as the one who fixes things. Line 6 lives in three phases and becomes a role model.'],
+            ['h','Living your Profile'],['p','There is no better or worse Profile. Knowing yours helps you stop judging the way you naturally learn and connect.']] },
+    { id:'electromagnetic', cat:'Relationships', t:'Electromagnetic channels: why some people complete you', min:5, bg:'var(--bg-2)',
+      lead:'When one person has one gate of a channel and the other has the opposite gate, a spark appears. Here is how connection charts show it.',
+      body:[['p','A channel joins two gates. When you carry one gate and another person carries the other, the channel lights up only when you are together. This is called an electromagnetic connection.'],
+            ['h','Attraction and friction'],['p','Electromagnetic channels often feel like strong attraction. Because the energy only exists together, they can also bring friction when each person expects the other to always provide it.'],
+            ['h','Reading a connection chart'],['p','In the app, add a second chart and open Connections. Electromagnetic channels are highlighted so you can talk about them openly.']] },
+    { id:'transits', cat:'Transits', t:'How to read daily transits without overthinking', min:5, bg:'var(--primary-50)',
+      lead:'The planets move through the 64 gates every day. Transits colour the weather around you — they do not change who you are.',
+      body:[['p','A transit is where the planets are right now, mapped onto the same 64 gates as your chart. The Sun moves through roughly one gate every five to six days.'],
+            ['h','Weather, not identity'],['p','Transits can temporarily define a channel or center you do not have. You may feel that energy for a while, but it is a visitor. Your Type and Authority stay the same.'],
+            ['h','A simple practice'],['p','Check the daily transit once in the morning, notice which of your centers it touches, and then let it go. Your Strategy and Authority still lead your decisions.']] }
+  ];
+  const ACATS = ['All', ...Array.from(new Set(ARTICLES.map(a=>a.cat)))];
+  let acat = 'All';
+  function articleCard(a){
+    return `<a href="#article" data-article="${a.id}" class="card report-card article-card">
+      <div class="a-cover" style="background:radial-gradient(60% 70% at 50% 35%,var(--glow),transparent 70%),${a.bg}"><span class="tag">${a.cat}</span><svg width="96" height="96" aria-hidden="true"><use href="#mark"/></svg></div>
+      <div class="body"><h3>${a.t}</h3><p class="small muted" style="flex:1">${a.lead}</p>
+      <div class="meta"><span class="xs">${a.min} min read</span><span class="small" style="color:var(--primary);font-weight:500">Read →</span></div></div></a>`;
+  }
+  function renderArticles(){
+    const f = ARTICLES[0];
+    $('#featured-article').dataset.article = f.id;
+    $('#featured-article').innerHTML = `<div class="a-cover" style="background:radial-gradient(60% 70% at 50% 40%,var(--glow),transparent 70%),var(--bg-2)"><svg width="180" height="180" aria-hidden="true"><use href="#mark"/></svg></div>
+      <div class="fa-body"><span class="eyebrow">Start here · ${f.cat}</span><h2>${f.t}</h2><p class="muted" style="font-size:17px;line-height:27px">${f.lead}</p><span class="xs">${f.min} min read</span></div>`;
+    $('#article-chips').innerHTML = ACATS.map(c=>`<button type="button" class="chip" aria-pressed="${c===acat}" data-acat="${c}">${c}</button>`).join('');
+    $('#article-grid').innerHTML = ARTICLES.filter(a=>acat==='All'||a.cat===acat).map(articleCard).join('');
+  }
+  $('#article-chips').addEventListener('click',e=>{const b=e.target.closest('[data-acat]'); if(!b) return; acat=b.dataset.acat; renderArticles(); $(`[data-acat="${acat}"]`).focus();});
+  renderArticles();
+  $('#home-articles').innerHTML = [ARTICLES[0],ARTICLES[2],ARTICLES[3]].map(articleCard).join('');
+  function fillArticle(){
+    const a = ARTICLES.find(x=>x.id===currentArticle) || ARTICLES[0];
+    $('#ar-crumb').textContent = a.t; $('#ar-title').textContent = a.t; $('#ar-lead').textContent = a.lead;
+    $('#ar-meta').textContent = a.cat; $('#ar-time').textContent = a.min + ' min read';
+    $('#ar-body').innerHTML = a.body.map(([k,txt]) => k==='h' ? `<h2>${txt}</h2>` : k==='q' ? `<blockquote>${txt}</blockquote>` : `<p>${txt}</p>`).join('');
+    $('#ar-related').innerHTML = ARTICLES.filter(x=>x.id!==a.id).slice(0,3).map(articleCard).join('');
+  }
+
+  // ---------- reports ----------
+  function reportIcon(r, size){
+    return `<svg width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="${r.fg}" stroke-width="1"/><circle cx="20" cy="20" r="11" fill="none" stroke="${r.fg}" stroke-width=".6" stroke-dasharray="1.5 2"/><path d="M20 8 C21 16 24 19 32 20 C24 21 21 24 20 32 C19 24 16 21 8 20 C16 19 19 16 20 8 Z" fill="${r.fg}"/></svg>`;
+  }
+  function reportCard(r){
+    const inCart = cart.some(i=>i.id===r.id && !i.gift);
+    return `<div class="card report-card">
+      <a href="#report" data-report="${r.id}" class="card-link">
+        <div class="cover" style="background:${r.bg}">${reportIcon(r,76)}
+          <span class="pill" style="position:absolute;top:12px;left:12px;background:var(--surface);color:var(--text-2);font-size:12px;padding:4px 10px">${r.cat}</span>
+        </div>
+        <div class="body"><h3 style="font-size:18px;line-height:24px">${r.t}</h3><p class="small muted" style="flex:1">${r.d}</p>
+        <div class="meta"><span class="xs">${r.meta}</span><strong style="font-weight:600">[PRICE]</strong></div></div>
+      </a>
+      <div class="buy-row"><span class="xs">${inCart ? 'In your cart' : 'One-time · PDF'}</span>
+        <button type="button" class="add-btn${inCart?' added':''}" data-add="${r.id}" aria-label="${inCart?'In cart: ':'Add to cart: '}${r.t}">${inCart?'In cart ✓':'Add to cart'}</button></div>
+    </div>`;
+  }
+  // ---------- cart ----------
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem('astral-cart') || '[]'); if (!Array.isArray(cart)) cart = []; } catch(e) { cart = []; }
+  function saveCart(){ try { localStorage.setItem('astral-cart', JSON.stringify(cart)); } catch(e) {} }
+  function updateBadge(bump){
+    const n = cart.length, b = $('#cart-count');
+    b.textContent = n; b.hidden = n === 0;
+    $('#cart-link').setAttribute('aria-label', n ? `Cart, ${n} item${n>1?'s':''}` : 'Cart, empty');
+    if (bump && n) { b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); }
+  }
+  function addToCart(id, gift, giftEmail){
+    const r = REPORTS.find(x=>x.id===id); if (!r) return false;
+    const key = id + '|' + (gift ? giftEmail.toLowerCase() : 'me');
+    if (cart.some(i=>i.key===key)) { toast(gift ? 'This gift is already in your cart.' : `${r.t} is already in your cart.`); return false; }
+    cart.push({ key, id, gift: !!gift, giftEmail: gift ? giftEmail : '' });
+    saveCart(); updateBadge(true); refreshReportCards();
+    toast(`Added to cart: ${r.t}${gift ? ' (gift)' : ''}`);
+    return true;
+  }
+  const PLANS = { plus:{ t:'Astral Plus', d:'Software subscription' }, practitioner:{ t:'Astral Practitioner', d:'Software subscription' } };
+  let swBilling = 'yearly';
+  function itemInfo(i){
+    if (i.plan) { const p = PLANS[i.plan] || PLANS.plus; return { t:p.t, sub:`${p.d} · billed ${i.billing}`, bg:'var(--primary-50)', icon:'<svg width="52" height="52" aria-hidden="true"><use href="#mark"/></svg>', price: i.billing==='yearly' ? '€[XX] / year' : '€[XX] / month' }; }
+    const r = REPORTS.find(x=>x.id===i.id) || REPORTS[0];
+    return { t:r.t + (i.gift?' (gift)':''), sub: i.gift ? 'Gift for ' + esc(i.giftEmail) : 'For Alex Morgan · 12 Mar 1991, Sofia', bg:r.bg, icon:reportIcon(r,44), price:'[PRICE]' };
+  }
+  function addPlan(plan){
+    const had = cart.find(i=>i.plan);
+    cart = cart.filter(i=>!i.plan);
+    cart.unshift({ key:'plan', plan, billing: swBilling });
+    saveCart(); updateBadge(true);
+    toast(had ? `Plan changed to ${PLANS[plan].t} (${swBilling}).` : `${PLANS[plan].t} (${swBilling}) added to your cart.`);
+    location.hash = 'cart';
+  }
+  $$('[data-buyplan]').forEach(b=>b.addEventListener('click',()=>addPlan(b.dataset.buyplan)));
+  $$('[data-swbill]').forEach(b=>b.addEventListener('click',()=>{
+    swBilling = b.dataset.swbill;
+    $$('[data-swbill]').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+    $$('[data-swper]').forEach(s=>s.textContent = swBilling==='yearly' ? '/ month, billed yearly' : '/ month');
+  }));
+  $('#buy-sw-jump').addEventListener('click',()=>{ const t=$('#buy-software'); t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); setTimeout(()=>t.focus({preventScroll:true}), 400); });
+  function removeFromCart(key){ cart = cart.filter(i=>i.key!==key); saveCart(); updateBadge(false); renderCart(); refreshReportCards(); }
+  function refreshReportCards(){
+    if (typeof renderReports === 'function') renderReports();
+    $('#home-reports').innerHTML = [REPORTS[0],REPORTS[3],REPORTS[5]].map(reportCard).join('');
+  }
+  function renderCart(){
+    const n = cart.length;
+    $('#cart-empty').hidden = n > 0; $('#cart-full').hidden = n === 0;
+    $('#cart-heading').textContent = n ? `${n} item${n>1?'s':''} in your cart` : 'Cart';
+    $('#cart-list').innerHTML = cart.map(i=>{
+      const f = itemInfo(i);
+      return `<li class="cart-item">
+        <div class="cart-thumb" style="background:${f.bg}">${f.icon}</div>
+        <div class="info"><strong>${f.t}</strong>
+          <span class="xs">${f.sub}</span>
+          <span class="small" style="font-weight:600">${f.price}</span></div>
+        <button type="button" class="remove-btn" data-remove="${esc(i.key)}" aria-label="Remove ${f.t} from cart">Remove</button>
+      </li>`;
+    }).join('');
+    $('#cart-lines').innerHTML = cart.map(i=>{ const f = itemInfo(i); return `<div class="sum"><span class="muted">${f.t}</span><span>${f.price}</span></div>`; }).join('');
+    $('#pay-btn').textContent = cart.some(i=>i.plan) ? 'Pay and start subscription' : `Pay for ${n} report${n>1?'s':''}`;
+  }
+  $('#cart-list').addEventListener('click', e=>{ const b = e.target.closest('[data-remove]'); if (b) removeFromCart(b.dataset.remove); });
+  document.addEventListener('click', e=>{
+    const b = e.target.closest('[data-add]'); if (!b) return;
+    e.preventDefault();
+    if (cart.some(i=>i.id===b.dataset.add && !i.gift)) { location.hash = 'cart'; return; }
+    addToCart(b.dataset.add, false, '');
+  });
+  function orderFromForm(){
+    const gift = $('#for-gift').checked, em = $('#gift-email').value.trim();
+    if (gift && !/\S+@\S+\.\S+/.test(em)) { $('#gift-err').hidden = false; $('#gift-email').focus(); return null; }
+    $('#gift-err').hidden = true;
+    return { gift, em };
+  }
+  $('#order-form').addEventListener('submit', e=>{ e.preventDefault(); const o = orderFromForm(); if (o) addToCart(currentReport, o.gift, o.em); });
+  $('#buy-now').addEventListener('click', ()=>{ const o = orderFromForm(); if (!o) return; const key = currentReport + '|' + (o.gift ? o.em.toLowerCase() : 'me'); if (!cart.some(i=>i.key===key)) addToCart(currentReport, o.gift, o.em); location.hash = 'cart'; });
+  $('#promo-apply').addEventListener('click', ()=>{ const v = $('#promo').value.trim(); toast(v ? `Promo codes are checked at payment on the live site — demo only.` : 'Enter a promo code first.'); });
+  updateBadge(false);
+
+  $('#home-reports').innerHTML = [REPORTS[0],REPORTS[3],REPORTS[5]].map(reportCard).join('');
+  const CATS = ['All','Foundations','Relationships','Career','Timing','Family'];
+  let cat = 'All';
+  function renderReports(){
+    $('#report-chips').innerHTML = CATS.map(c=>`<button type="button" class="chip" aria-pressed="${c===cat}" data-cat="${c}">${c}</button>`).join('');
+    $('#report-grid').innerHTML = REPORTS.filter(r=>cat==='All'||r.cat===cat).map(reportCard).join('');
+  }
+  $('#report-chips').addEventListener('click',e=>{const b=e.target.closest('[data-cat]'); if(!b) return; cat=b.dataset.cat; renderReports(); $(`[data-cat="${cat}"]`).focus();});
+  renderReports();
+  function fillReport(){
+    const r = REPORTS.find(x=>x.id===currentReport) || REPORTS[0];
+    ['#rd-crumb','#rd-title','#rd-book-title','#rd-line'].forEach(s=>$(s).textContent=r.t);
+    $('#rd-desc').textContent = r.d;
+    $('#rd-hero').style.background = r.bg;
+  }
+  $$('input[name="for"]').forEach(i=>i.addEventListener('change',()=>{const g=$('#for-gift').checked; $('#for-gift-box').hidden=!g; $('#for-me-box').hidden=g;}));
+  $('#checkout').addEventListener('submit',e=>{e.preventDefault(); const em=$('#co-email').value.trim(); if(!/\S+@\S+\.\S+/.test(em)){toast('Enter a delivery email like name@example.com.'); $('#co-email').focus(); return;} const n=cart.length; cart=[]; saveCart(); updateBadge(false); refreshReportCards(); renderCart(); toast(`Demo checkout — no payment was taken. On the live site your order (${n} item${n>1?'s':''}) would be confirmed to ${em}.`);});
+
+  // ---------- pricing ----------
+  $$('[data-bill]').forEach(b=>b.addEventListener('click',()=>{
+    $$('[data-bill]').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+    const yearly = b.dataset.bill==='yearly';
+    $$('[data-per]').forEach(s=>s.textContent = yearly ? '/ month, billed yearly' : '/ month');
+  }));
+
+  // ---------- signup ----------
+  const PLACES = [['Sofia','Bulgaria','UTC+2 (EET)'],['Sofia','Philippines','UTC+8'],['Sofia','New Mexico, USA','UTC−7 (MST)'],['Plovdiv','Bulgaria','UTC+2 (EET)'],['Varna','Bulgaria','UTC+2 (EET)'],['London','United Kingdom','UTC+0 (GMT)'],['New York','USA','UTC−5 (EST)'],['Berlin','Germany','UTC+1 (CET)']];
+  function renderPlaces(){
+    const q = $('#bd-place').value.trim().toLowerCase();
+    const list = PLACES.filter(p=>p[0].toLowerCase().startsWith(q)).slice(0,4);
+    $('#places').hidden = !q || !list.length;
+    $('#bd-place').setAttribute('aria-expanded', String(!$('#places').hidden));
+    $('#places').innerHTML = list.map((p,i)=>`<li><button type="button" role="option" aria-selected="${i===0}" data-place="${p.join('|')}"><strong style="font-weight:600">${p[0]}</strong>, ${p[1]} <span class="xs">· ${p[2]}</span></button></li>`).join('');
+  }
+  $('#bd-place').addEventListener('input',renderPlaces);
+  $('#places').addEventListener('click',e=>{const b=e.target.closest('[data-place]'); if(!b) return; const [c,co,tz]=b.dataset.place.split('|'); $('#bd-place').value=c+', '+co; $('#tz-note').textContent='Time zone: '+tz+', set automatically from the place and date.'; $('#places').hidden=true; $('#bd-place').setAttribute('aria-expanded','false');});
+  renderPlaces();
+  $('#bd-unknown').addEventListener('change',e=>{$('#bd-time').disabled=e.target.checked;});
+  function goStep(n){ $('#step1').hidden=n!==1; $('#step2').hidden=n!==2; $('#p2').classList.toggle('on',n===2); (n===1?$('#su-email'):$('#bd-name')).focus(); }
+  $$('[data-social]').forEach(b=>b.addEventListener('click',()=>goStep(2)));
+  $('#step1').addEventListener('submit',e=>{e.preventDefault();
+    const okE=/\S+@\S+\.\S+/.test($('#su-email').value.trim()), okP=$('#su-pass').value.length>=8;
+    $('#su-email-err').hidden=okE; $('#su-pass-err').hidden=okP;
+    if(okE&&okP) goStep(2); else (okE?$('#su-pass'):$('#su-email')).focus();});
+  $('#back1').addEventListener('click',()=>goStep(1));
+  $('#step2').addEventListener('submit',e=>{e.preventDefault(); const n=$('#bd-name').value.trim()||'Alex'; $('#greet').textContent=greeting()+', '+n.split(' ')[0]; location.hash='chart'; toast('Chart calculated — this demo shows a sample chart.');});
+
+  // ---------- dashboard ----------
+  function greeting(){const h=new Date().getHours(); return h<12?'Good morning':h<18?'Good afternoon':'Good evening';}
+  $('#greet').textContent = greeting()+', Alex';
+  $('#today').textContent = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  let center = 'Sacral';
+  function renderCenters(){
+    $('#center-chips').innerHTML = CENTERS.map(([n,s])=>`<button type="button" class="cchip" aria-pressed="${n===center}" data-c="${n}"><i class="${s==='Defined'?'def':''}"></i>${n}</button>`).join('');
+    const c = CENTERS.find(x=>x[0]===center);
+    $('#ci-name').textContent=c[0]; $('#ci-state').textContent=c[1]; $('#ci-text').textContent=c[2];
+    $('#ci-state').className = 'pill '+(c[1]==='Defined'?'pill-indigo':'pill-soft');
+    $('#ci-state').style.cssText='font-size:12px;padding:3px 10px';
+    $$('#main-bg [data-center]').forEach(el=>el.classList.toggle('hot', el.dataset.center===center));
+  }
+  $('#center-chips').addEventListener('click',e=>{const b=e.target.closest('[data-c]'); if(!b) return; center=b.dataset.c; renderCenters(); $(`[data-c="${center}"]`).focus();});
+  $('#main-bg').addEventListener('click',e=>{const el=e.target.closest('[data-center]'); if(!el) return; center=el.dataset.center; renderCenters();});
+  renderCenters();
+  $('#ci-ask').addEventListener('click',()=>{ pendingQ = 'What does my '+(CENTERS.find(x=>x[0]===center)[1].toLowerCase())+' '+center+' center mean for me?'; });
+  function setLayer(l){ $$('[data-layer]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.layer===l))); showTransitGates($('#main-bg'), l==='transit' ? new Set(activations(new Date()).map(a=>a.gate)) : new Set()); $('#legend-transit').hidden = l!=='transit'; }
+  $$('[data-layer]').forEach(b=>b.addEventListener('click',()=>setLayer(b.dataset.layer)));
+  $('[data-show-transit]').addEventListener('click',()=>{setLayer('transit'); $('#main-bg').scrollIntoView({behavior:'smooth',block:'center'});});
+  $('[data-transit]').addEventListener('click',()=>setTimeout(()=>setLayer('transit'),0));
+
+  // ---------- AI library ----------
+  let quota = 18, pendingQ = null;
+  const esc = s => s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function aiBlock(paras, sources){
+    return `<div class="ai"><div class="ai-avatar"><svg width="18" height="18" aria-hidden="true" style="color:var(--on-primary)"><use href="#star"/></svg></div>
+      <div class="ai-body">${paras.map(p=>`<p>${p}</p>`).join('')}
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${sources.map((s,i)=>`<span class="src">[${i+1}] ${s[0]}</span>`).join('')}</div></div></div>`;
+  }
+  function setSources(s){ $('#sources').innerHTML = s.map((x,i)=>`<div class="src-item"><strong style="font-size:12px;font-weight:600;color:var(--primary-ink)">[${i+1}] ${x[0]}</strong><span class="xs">${x[1]}</span></div>`).join(''); }
+  function resetChat(){
+    $('#chat-title').textContent='Deciding on the job offer';
+    $('#thread').innerHTML = `<div class="bubble-me">${FIRST.q}</div>` + aiBlock(FIRST.p, FIRST.s);
+    setSources(FIRST.s);
+  }
+  function ask(q){
+    q = q.trim(); if(!q) return;
+    if (quota<=0){ toast('No AI questions left this month on Plus. Upgrade to Practitioner for unlimited questions.'); return; }
+    const a = ANSWERS.find(x=>x.k.test(q));
+    const th = $('#thread');
+    th.insertAdjacentHTML('beforeend', `<div class="bubble-me">${esc(q)}</div><div class="ai" id="typing"><div class="ai-avatar"><svg width="18" height="18" aria-hidden="true" style="color:var(--on-primary)"><use href="#star"/></svg></div><div class="typing" aria-label="Writing an answer"><span></span><span></span><span></span></div></div>`);
+    th.scrollTop = th.scrollHeight;
+    setTimeout(()=>{
+      $('#typing').remove();
+      th.insertAdjacentHTML('beforeend', aiBlock(a.p.map(esc), a.s));
+      th.scrollTop = th.scrollHeight; setSources(a.s);
+      quota--; $('#quota-text').textContent=`AI questions: ${quota} of 30 left this month`; $('#quota-bar').style.width=(quota/30*100)+'%';
+    }, 900);
+  }
+  $('#suggestions').innerHTML = SUGGEST.map(s=>`<button type="button" class="chip" style="min-height:40px;font-weight:500;font-size:13px" data-q="${esc(s)}">${esc(s)}</button>`).join('');
+  $('#suggestions').addEventListener('click',e=>{const b=e.target.closest('[data-q]'); if(b) ask(b.dataset.q);});
+  $('#ask-form').addEventListener('submit',e=>{e.preventDefault(); ask($('#l-ask').value); $('#l-ask').value='';});
+  $('#new-chat').addEventListener('click',()=>{ $('#thread').innerHTML='<p class="xs" style="text-align:center;padding:40px 0">Ask anything about your chart to start.</p>'; $('#chat-title').textContent='New conversation'; setSources([]); $('#sources').innerHTML='<p class="xs">Sources appear here after an answer.</p>'; $('#l-ask').focus(); });
+  resetChat();
+  window.addEventListener('hashchange',()=>{ if(location.hash==='#library' && pendingQ){ const q=pendingQ; pendingQ=null; setTimeout(()=>ask(q),250);} });
+
+  const docs = [['My course notes — Centers.pdf','Ready'],['Client session template.docx','Ready'],['Gate keynotes (own).txt','Indexing…']];
+  function renderDocs(){ $('#docs').innerHTML = docs.map(d=>`<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="1.8" aria-hidden="true" style="flex-shrink:0"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/></svg><span>${esc(d[0])}</span><span class="${d[1]==='Ready'?'pill pill-ok':'xs'}" style="font-size:12px;padding:2px 8px">${d[1]}</span></li>`).join(''); }
+  function addFiles(files){ [...files].forEach(f=>{ const d=[f.name,'Indexing…']; docs.unshift(d); setTimeout(()=>{d[1]='Ready'; renderDocs();},1600); }); renderDocs(); toast(files.length+' file(s) added — demo only, files stay in your browser.'); }
+  $('#upload').addEventListener('change',e=>addFiles(e.target.files));
+  const drop=$('#drop');
+  drop.addEventListener('dragover',e=>{e.preventDefault(); drop.classList.add('over');});
+  drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+  drop.addEventListener('drop',e=>{e.preventDefault(); drop.classList.remove('over'); if(e.dataTransfer.files.length) addFiles(e.dataTransfer.files);});
+  renderDocs();
+
+  // ---------- one golden thread per section ----------
+  (function(){
+    const NS='http://www.w3.org/2000/svg';
+    const defs=document.createElementNS(NS,'svg'); defs.setAttribute('width','0'); defs.setAttribute('height','0'); defs.setAttribute('aria-hidden','true'); defs.style.position='absolute';
+    defs.innerHTML='<defs><linearGradient id="threadGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E2C989" stop-opacity="0"/><stop offset=".2" stop-color="#E2C989" stop-opacity=".9"/><stop offset=".55" stop-color="#F6E2A6"/><stop offset=".85" stop-color="#C9A24A" stop-opacity=".8"/><stop offset="1" stop-color="#C9A24A" stop-opacity="0"/></linearGradient></defs>';
+    document.body.appendChild(defs);
+    const shapes=['M0 90 C 260 20, 520 160, 760 80 S 1200 10, 1440 100','M0 60 C 320 140, 600 0, 900 90 S 1260 150, 1440 50','M0 110 C 220 40, 480 40, 720 100 S 1180 150, 1440 70','M0 70 C 360 10, 640 150, 980 70 S 1300 30, 1440 110'];
+    const blocks=$$('#main .band, #main .night, .newsletter, #main > section > .wrap.section, #main > section > .section').filter(el=>!el.closest('.band, .night')||el.matches('.band, .night'));
+    blocks.forEach((el,i)=>{
+      el.classList.add('threaded'); if(getComputedStyle(el).position==='static') el.style.position='relative';
+      const svg=document.createElementNS(NS,'svg'); svg.setAttribute('class','thread'); svg.setAttribute('viewBox','0 0 1440 160'); svg.setAttribute('preserveAspectRatio','none'); svg.setAttribute('aria-hidden','true');
+      svg.style.top = (i%2 ? 62 : 18) + '%';
+      const d=shapes[i%shapes.length];
+      svg.innerHTML=`<path class="glow" d="${d}"/><path class="base" d="${d}"/><path class="glint" d="${d}" style="animation-delay:-${(i*2.3)%9}s"/>`;
+      el.prepend(svg);
+    });
+  })();
+
+  // ---------- logo hover: letters rearrange, stars appear ----------
+  (function(){
+    const SPARK = '<svg viewBox="0 0 40 40" aria-hidden="true"><use href="#star"/></svg>';
+    $$('.site-header .logo, .site-footer .logo').forEach(logo => {
+      logo.setAttribute('aria-label','Astral Design — home');
+      const words = [logo.querySelector('.logo-text b'), logo.querySelector('.logo-text > span > span')].filter(Boolean);
+      words.forEach(w => w.setAttribute('aria-hidden','true'));
+      let busy = false;
+      function sparkle(){
+        const r = logo.getBoundingClientRect();
+        for (let i=0;i<9;i++){
+          const sp = document.createElement('span'); sp.className='logo-spark'; sp.innerHTML = SPARK;
+          const x = Math.random()*r.width, y = Math.random()*r.height;
+          sp.style.left = x+'px'; sp.style.top = y+'px';
+          sp.style.setProperty('--dx', ((Math.random()-.5)*36).toFixed(0)+'px');
+          sp.style.setProperty('--dy', (-8-Math.random()*22).toFixed(0)+'px');
+          sp.style.setProperty('--sz', (6+Math.random()*9).toFixed(0)+'px');
+          sp.style.setProperty('--dur', (0.7+Math.random()*0.6).toFixed(2)+'s');
+          sp.style.animationDelay = (Math.random()*0.35).toFixed(2)+'s';
+          logo.appendChild(sp);
+          setTimeout(()=>sp.remove(), 1800);
+        }
+      }
+      function scramble(el){
+        const orig = el.dataset.word || (el.dataset.word = el.textContent);
+        const letters = orig.split(''); const total = 22; let f = 0;
+        el.classList.add('scrambling');
+        const id = setInterval(()=>{
+          f++;
+          const fixed = Math.floor((f/total) * letters.length);
+          const rest = letters.slice(fixed);
+          for (let i=rest.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [rest[i],rest[j]]=[rest[j],rest[i]]; }
+          el.textContent = letters.slice(0,fixed).join('') + rest.join('');
+          if (f>=total){ clearInterval(id); el.textContent = orig; el.classList.remove('scrambling'); }
+        }, 38);
+      }
+      logo.addEventListener('mouseenter', ()=>{
+        if (busy) return; busy = true; setTimeout(()=>busy=false, 1100);
+        sparkle();
+        if (!reduce) words.forEach((w,i)=>setTimeout(()=>scramble(w), i*120));
+      });
+    });
+  })();
+
+  // ---------- neutrino stream flowing into the Merkaba / bodygraph ----------
+  (function(){
+    const cv = $('#neutrino'); if (!cv || reduce) return;
+    const ctx = cv.getContext('2d'); const hero = cv.parentElement; const stg = $('#stage');
+    let W=0,H=0,dpr=1, cx=0, cy=0, rTarget=60, last=0, nextBeam=0.6, sector=0;
+    const dust=[], beams=[];
+    function size(){ dpr=Math.min(2,devicePixelRatio||1); W=hero.clientWidth; H=hero.clientHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      const h=hero.getBoundingClientRect(), r=stg.getBoundingClientRect(); cx=r.left-h.left+r.width/2; cy=r.top-h.top+r.height/2; rTarget=r.width*0.16; }
+    function edgePoint(a){ if (a===undefined) a=Math.random()*Math.PI*2; const R=Math.hypot(W,H)*0.6; return {x:cx+Math.cos(a)*R, y:cy+Math.sin(a)*R*0.85}; }
+    function spawnDust(){ const p=edgePoint(); const t=Math.random(); return {x:cx+(p.x-cx)*(0.35+t*0.65), y:cy+(p.y-cy)*(0.35+t*0.65), v:14+Math.random()*22, s:0.6+Math.random()*1.1, a:0}; }
+    for(let i=0;i<110;i++) dust.push(spawnDust());
+    const SECTORS=16; function spawnBeam(){ sector=(sector+5)%SECTORS; const a=(sector+Math.random())/SECTORS*Math.PI*2; const p=edgePoint(a); beams.push({x:p.x,y:p.y, v:520+Math.random()*420, len:90+Math.random()*120, w:0.8+Math.random()*1.2, life:1}); }
+    function step(t){
+      const dt = last ? Math.min(0.05,(t-last)/1000) : 0; last=t;
+      if (document.hidden || $('#site').hidden || hero.offsetParent===null){ requestAnimationFrame(step); return; }
+      ctx.clearRect(0,0,W,H);
+      // faint continuous drift
+      dust.forEach((d,i)=>{
+        const dx=cx-d.x, dy=cy-d.y, dist=Math.hypot(dx,dy)||1;
+        d.x += dx/dist*d.v*dt; d.y += dy/dist*d.v*dt;
+        d.a = Math.min(1, d.a + dt*0.6);
+        const fade = Math.min(1,(dist-rTarget)/120);
+        if (dist < rTarget){ dust[i]=spawnDust(); return; }
+        ctx.globalAlpha = 0.45*d.a*Math.max(0,fade);
+        ctx.fillStyle = '#E2C989';
+        ctx.beginPath(); ctx.arc(d.x,d.y,d.s,0,Math.PI*2); ctx.fill();
+      });
+      // sudden beams, a moment apart
+      nextBeam -= dt;
+      if (nextBeam <= 0){ const n = 1 + Math.floor(Math.random()*3); for(let k=0;k<n;k++) setTimeout(spawnBeam, k*(90+Math.random()*160)); nextBeam = 0.45 + Math.random()*1.1; }
+      for (let i=beams.length-1;i>=0;i--){
+        const b=beams[i], dx=cx-b.x, dy=cy-b.y, dist=Math.hypot(dx,dy)||1, ux=dx/dist, uy=dy/dist;
+        b.x += ux*b.v*dt; b.y += uy*b.v*dt;
+        if (dist < rTarget){ beams.splice(i,1); stg.classList.add('charged'); clearTimeout(stg._ct); stg._ct=setTimeout(()=>stg.classList.remove('charged'),180); continue; }
+        const tail = Math.min(b.len, dist);
+        const tx=b.x-ux*tail, ty=b.y-uy*tail;
+        const g=ctx.createLinearGradient(tx,ty,b.x,b.y);
+        const near = Math.min(1,(dist-rTarget)/160);
+        g.addColorStop(0,'rgba(226,201,137,0)'); g.addColorStop(0.7,`rgba(240,215,154,${0.35*near})`); g.addColorStop(1,`rgba(255,248,226,${0.95*near})`);
+        ctx.globalAlpha=1; ctx.strokeStyle=g; ctx.lineWidth=b.w; ctx.lineCap='round';
+        ctx.beginPath(); ctx.moveTo(tx,ty); ctx.lineTo(b.x,b.y); ctx.stroke();
+        ctx.fillStyle=`rgba(255,244,214,${0.7*near})`; ctx.beginPath(); ctx.arc(b.x,b.y,b.w*1.6,0,Math.PI*2); ctx.fill();
+      }
+      ctx.globalAlpha=1;
+      requestAnimationFrame(step);
+    }
+    size(); addEventListener('resize', size); window.addEventListener('hashchange', ()=>setTimeout(size,60));
+    if (window.ResizeObserver) new ResizeObserver(size).observe(hero);
+    requestAnimationFrame(step);
+  })();
+
+  // ---------- mobile menu ----------
+  (function(){
+    const header = $('.site-header'), btn = $('#menu-toggle'), nav = $('#main-nav'), cart = $('#cart-link'), slot = $('#mobile-cart-slot');
+    const mq = matchMedia('(max-width:1100px)');
+    const login = nav.querySelector('.nav-login');
+    function place(){ if (mq.matches) slot.appendChild(cart); else nav.insertBefore(cart, login); if (!mq.matches) setOpen(false); }
+    function setOpen(o){ header.classList.toggle('open', o); btn.setAttribute('aria-expanded', String(o)); btn.querySelector('span').textContent = o ? 'Close' : 'Menu'; }
+    btn.addEventListener('click', ()=>setOpen(!header.classList.contains('open')));
+    nav.addEventListener('click', e=>{ if (e.target.closest('a')) setOpen(false); });
+    $('.header-actions').addEventListener('click', e=>{ if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', e=>{ if (e.key==='Escape' && header.classList.contains('open')) { setOpen(false); btn.focus(); } });
+    (mq.addEventListener ? mq.addEventListener('change', place) : mq.addListener(place)); place();
+  })();
+
+  // ---------- live transits (calculated for this moment) ----------
+  // Low-precision ephemeris: Sun ±0.01°, Moon ~±0.3°, mean lunar nodes. Good enough for gate/line display in a preview.
+  const WHEEL = [41,19,13,49,30,55,37,63,22,36,25,17,21,51,42,3,27,24,2,23,8,20,16,35,45,12,15,52,39,53,62,56,31,33,7,4,29,59,40,64,47,6,46,18,48,57,32,50,28,44,1,43,14,34,9,5,26,11,10,58,38,54,61,60];
+  const CENTER_OF = {};
+  [['Head',[64,61,63]],['Ajna',[47,24,4,17,43,11]],['Throat',[62,23,56,35,12,45,33,8,31,20,16]],['G',[1,13,25,46,2,15,10,7]],
+   ['Heart',[21,40,26,51]],['Sacral',[5,14,29,59,9,3,42,27,34]],['Spleen',[48,57,44,50,32,28,18]],
+   ['Solar Plexus',[36,22,37,6,49,55,30]],['Root',[53,60,52,19,39,41,58,38,54]]].forEach(([c,gs])=>gs.forEach(g=>CENTER_OF[g]=c));
+  const CHANNELS = [[1,8],[2,14],[3,60],[4,63],[5,15],[6,59],[7,31],[9,52],[10,20],[10,34],[10,57],[11,56],[12,22],[13,33],[16,48],[17,62],[18,58],[19,49],[20,34],[20,57],[21,45],[23,43],[24,61],[25,51],[26,44],[27,50],[28,38],[29,46],[30,41],[32,54],[34,57],[35,36],[37,40],[39,55],[42,53],[47,64]];
+  const rad = d => d*Math.PI/180, norm = d => ((d%360)+360)%360;
+  function gateOf(lon){ const x = norm(lon - 302); const i = Math.floor(x/5.625); return { gate: WHEEL[i], line: Math.floor((x - i*5.625)/0.9375)+1 }; }
+  function activations(date){
+    const n = date.getTime()/86400000 + 2440587.5 - 2451545.0;
+    const g = rad(357.528 + 0.9856003*n);
+    const sun = norm(280.460 + 0.9856474*n + 1.915*Math.sin(g) + 0.020*Math.sin(2*g));
+    const Lm = 218.316 + 13.176396*n, Mm = rad(134.963 + 13.064993*n), D = rad(297.850 + 12.190749*n);
+    const moon = norm(Lm + 6.289*Math.sin(Mm) - 1.274*Math.sin(2*D - Mm) + 0.658*Math.sin(2*D) + 0.214*Math.sin(2*Mm) - 0.186*Math.sin(g) - 0.114*Math.sin(2*rad(93.272 + 13.229350*n)));
+    const node = norm(125.045 - 0.0529538*n);
+    return [['Sun','☉',sun],['Earth','⊕',sun+180],['Moon','☽',moon],['North Node','☊',node],['South Node','☋',node+180]]
+      .map(([name,sym,lon]) => ({ name, sym, ...gateOf(lon), center: CENTER_OF[gateOf(lon).gate] }));
+  }
+  function transitInfo(date){
+    const acts = activations(date);
+    const gates = new Set(acts.map(a=>a.gate));
+    const chans = CHANNELS.filter(([a,b]) => gates.has(a) && gates.has(b));
+    return { acts, centers: new Set(acts.map(a=>a.center)), chans };
+  }
+
+  // ---------- chart slider ----------
+  const SLIDES = [
+    { id:'bodygraph', tier:'free', t:'Bodygraph', d:'Your natal chart: Type, Strategy, Authority, centers, gates and channels.', mode:'natal', go:'natal' },
+    { id:'now', tier:'free', t:'Transit chart — right now', d:'The planets’ positions this minute, mapped onto the bodygraph. Updates live.', mode:'now', go:'transit' },
+    { id:'bodygraph-transits', tier:'plus', t:'Bodygraph + Transits', d:'Today’s transits laid over your own chart, so you can see which centers they touch.', mode:'natal+tr' },
+    { id:'dream', tier:'plus', t:'Dream Rave + Transits', d:'Your sleep-state chart with tonight’s transits. [Exact Dream Rave layout to be supplied for development.]', mode:'dream' },
+    { id:'connection', tier:'plus', t:'Connection chart', d:'Two designs together — where you complete each other and where you share the same energy.', mode:'connection' }
+  ];
+  let slideIdx = 0, slideTimer = null, sliderPaused = false;
+  const LOCK = '<span class="lock" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>';
+  function newGraph(){ const s=document.createElement('span'); s.className='bg-slot'; s.appendChild(tpl.content.cloneNode(true)); return s; }
+  function applyTransit(slot, info, onlyTransit){
+    $$('[data-center]', slot).forEach(el => {
+      const c = el.dataset.center;
+      if (onlyTransit) {
+        const defined = info.chans.some(([a,b]) => CENTER_OF[a]===c || CENTER_OF[b]===c);
+        el.classList.toggle('def', defined); el.classList.toggle('open', !defined);
+      }
+      el.classList.toggle('tr', info.centers.has(c));
+    });
+    if (onlyTransit) { $$('.ch.on', slot).forEach(l => l.classList.remove('on')); $$('.hang', slot).forEach(h => h.classList.remove('on')); $$('.gc', slot).forEach(g => g.classList.remove('p','d','b')); $$('[data-center]', slot).forEach(el => { const def = el.classList.contains('def'); $$('.facet', slot); }); $$('.sparkle', slot).forEach(x => x.remove()); }
+    showTransitGates(slot, new Set(info.acts.map(a=>a.gate)));
+  }
+  function syncLabels(slot){
+    $$('.gn', slot).forEach(t => { const c = slot.querySelector(`[data-center="${GATE_CENTER[t.dataset.gateLabel]}"]`); t.classList.toggle('in-def', !!c && c.classList.contains('def') && !c.classList.contains('b')); });
+  }
+  function renderSlide(){
+    const s = SLIDES[slideIdx], info = transitInfo(new Date());
+    const paid = s.tier !== 'free';
+    const wrap = document.createElement('div'); wrap.className='slide'; wrap.setAttribute('role','group'); wrap.setAttribute('aria-roledescription','slide'); wrap.setAttribute('aria-label', `${slideIdx+1} of ${SLIDES.length}: ${s.t}`);
+    const btn = document.createElement('button'); btn.type='button'; btn.className='chart-btn' + (s.mode==='dream' ? ' night' : ''); btn.dataset.slide = s.id;
+    btn.setAttribute('aria-label', paid ? `${s.t} — Plus feature. Open in Astral Hub` : `${s.t} — free. Open in Astral Hub`);
+    btn.innerHTML = `<span class="pill ${paid?'pill-amber':'pill-ok'} tier">${paid?'Plus':'Free'}</span>${paid?LOCK:''}${s.mode==='dream'?'<span class="moon" aria-hidden="true"></span>':''}<span class="open-hint">${paid?'Upgrade to open':'Open in Astral Hub →'}</span>`;
+    if (s.mode === 'connection') {
+      const pair = document.createElement('span'); pair.className='pair';
+      const a = newGraph(), b = newGraph();
+      $$('[data-center]', b).forEach(el => { const c = el.dataset.center; if (['Head','Ajna','Heart','Solar Plexus'].includes(c)) { el.classList.remove('open'); el.classList.add('def','b'); } if (['Spleen','Root'].includes(c)) { el.classList.add('off'); } });
+      pair.append(a, b); btn.prepend(pair);
+    } else {
+      const g = newGraph();
+      if (s.mode === 'now') applyTransit(g, info, true);
+      if (s.mode === 'natal+tr' || s.mode === 'dream') applyTransit(g, info, false);
+      if (s.mode === 'dream') $$('[data-center]', g).forEach(el => { if (['Throat','G','Heart','Sacral'].includes(el.dataset.center)) { el.classList.remove('def'); el.classList.add('open'); } });
+      btn.prepend(g);
+    }
+    const cap = document.createElement('div'); cap.className='slide-cap';
+    const showActs = s.mode !== 'natal' && s.mode !== 'connection';
+    cap.innerHTML = `<h3>${s.t}</h3><p class="small muted">${s.d}</p>` + (showActs ? `<div class="acts" aria-label="Current transits">${info.acts.map(a=>`<span class="act" title="${a.name} in the ${a.center} center">${a.sym} <b>${a.gate}.${a.line}</b> ${a.name}</span>`).join('')}</div>` + (info.chans.length ? `<p class="xs">Transit channel${info.chans.length>1?'s':''} now: ${info.chans.map(c=>c.join('–')).join(', ')}</p>` : '') : '');
+    $$('.bg-slot', btn).forEach(syncLabels);
+    wrap.append(btn, cap);
+    $('#slides').replaceChildren(wrap);
+    $('#slide-dots').innerHTML = SLIDES.map((x,i)=>`<button type="button" data-dot="${i}" aria-label="${x.t}" aria-current="${i===slideIdx}"><i></i></button>`).join('');
+  }
+  function goSlide(i){ slideIdx = (i + SLIDES.length) % SLIDES.length; renderSlide(); }
+  function startAuto(){ clearInterval(slideTimer); if (reduce) return; slideTimer = setInterval(()=>{ if (!sliderPaused && !$('#site').hidden && location.hash==='#software') goSlide(slideIdx+1); }, 5500); }
+  $('#slide-prev').addEventListener('click', ()=>{ goSlide(slideIdx-1); startAuto(); });
+  $('#slide-next').addEventListener('click', ()=>{ goSlide(slideIdx+1); startAuto(); });
+  $('#slide-dots').addEventListener('click', e=>{ const d=e.target.closest('[data-dot]'); if (d) { goSlide(+d.dataset.dot); startAuto(); } });
+  const sl = $('#chart-slider');
+  sl.addEventListener('mouseenter', ()=>sliderPaused=true); sl.addEventListener('mouseleave', ()=>sliderPaused=false);
+  sl.addEventListener('focusin', ()=>sliderPaused=true); sl.addEventListener('focusout', ()=>sliderPaused=false);
+  function stamp(){
+    const now = new Date();
+    $('#live-time').textContent = 'Live · ' + now.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    const sun = activations(now)[0];
+    $('#dash-transit').textContent = `The Sun is in Gate ${sun.gate}, line ${sun.line} (${sun.center} center)`;
+  }
+  setInterval(()=>{ stamp(); if (location.hash==='#software') renderSlide(); }, 60000);
+  stamp(); renderSlide(); startAuto();
+
+  // ---------- Current Cosmos card on the home page ----------
+  function renderCosmos(){
+    const slot = $('#cosmos-bg'); if (!slot) return;
+    const info = transitInfo(new Date());
+    slot.replaceChildren(tpl.content.cloneNode(true));
+    applyTransit(slot, info, true); syncLabels(slot);
+    $('#cosmos-time').textContent = 'Just Now';
+    $('#cosmos-time').parentElement.title = 'Calculated for ' + new Date().toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    $('#cosmos-facts').innerHTML = info.acts.map(a=>`<div class="fact"><div class="k">${a.sym} ${a.name}</div><div class="v">Gate ${a.gate}.${a.line} <span class="xs" style="font:400 12px var(--f-body)">· ${a.center}</span></div></div>`).join('');
+    $('#cosmos-chan').textContent = info.chans.length ? `Defined by transit now: channel ${info.chans.map(c=>c.join('–')).join(', ')}` : 'No channel is completed by these transits right now.';
+  }
+  renderCosmos(); setInterval(renderCosmos, 60000);
+
+  // clicking a chart: free → Astral Hub; paid → Astral Hub + Upgrade message
+  let pendingUpgrade = null, lastFocus = null;
+  $('#slides').addEventListener('click', e=>{
+    const b = e.target.closest('[data-slide]'); if (!b) return;
+    const s = SLIDES.find(x=>x.id===b.dataset.slide);
+    if (s.tier === 'free') { location.hash = 'chart'; setTimeout(()=>setLayer(s.go), 0); toast(`Opened in Astral Hub: ${s.t}`); }
+    else { pendingUpgrade = s; location.hash = 'chart'; }
+  });
+  function openUpgrade(s){
+    lastFocus = document.activeElement;
+    $('#up-title').textContent = `Upgrade to unlock ${s.t}`;
+    $('#up-desc').textContent = `${s.t} is part of Astral Plus. Upgrade to see it calculated for your own birth data, together with transits, connection charts and the AI Library.`;
+    $('#upgrade').hidden = false; $('#up-buy').focus();
+  }
+  function closeUpgrade(){ $('#upgrade').hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  window.addEventListener('hashchange', ()=>{ if (location.hash==='#chart' && pendingUpgrade) { const s=pendingUpgrade; pendingUpgrade=null; setLayer('natal'); setTimeout(()=>openUpgrade(s), 350); } else if (location.hash!=='#chart') { $('#upgrade').hidden = true; } });
+  $('#up-close').addEventListener('click', closeUpgrade);
+  $('#up-later').addEventListener('click', closeUpgrade);
+  $('#up-compare').addEventListener('click', ()=>{ $('#upgrade').hidden = true; });
+  $('#up-buy').addEventListener('click', ()=>{ $('#upgrade').hidden = true; swBilling = 'yearly'; addPlan('plus'); });
+  $('#upgrade').addEventListener('click', e=>{ if (e.target.id==='upgrade') closeUpgrade(); });
+  document.addEventListener('keydown', e=>{
+    if ($('#upgrade').hidden) return;
+    if (e.key === 'Escape') { closeUpgrade(); return; }
+    if (e.key === 'Tab') { const f = $$('#upgrade button, #upgrade a'); const first=f[0], last=f[f.length-1]; if (e.shiftKey && document.activeElement===first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement===last) { e.preventDefault(); first.focus(); } }
+  });
+
+  route();
+})();
+</script>
+
+</body>
+</html>
